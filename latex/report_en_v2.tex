@@ -1,0 +1,1193 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage{amsmath,amssymb,bm}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{geometry}
+\usepackage[expansion=false]{microtype}
+\usepackage{hyperref}
+\usepackage{xcolor}
+
+\geometry{margin=2.2cm}
+\setlength{\emergencystretch}{2em}
+
+% Figures are kept at the place where they are introduced in the text.
+\hypersetup{colorlinks=true,linkcolor=black,urlcolor=blue}
+
+\graphicspath{{figures_v2/}{./}}
+
+\newcommand{\reportfigure}[3]{%
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.94\textwidth]{#1}%
+    \caption{#2}
+    \label{#3}
+\end{figure}
+}
+
+\title{Dispersion of Exciton--Photon Polaritons\\ in a Planar DBR Microcavity}
+\author{Korostelev Nikita}
+\date{}
+
+\begin{document}
+\maketitle
+\clearpage
+
+\section{Aim of the work}
+
+The aim of this work is to calculate the dispersion of exciton--photon polaritons in a planar semiconductor microcavity and to understand how it arises from the coupling between light in the cavity and an exciton in a quantum well. Analytical models are used to understand the origin of the main dependences, and then they are compared with the calculation of the full multilayer structure by the transfer-matrix method.
+
+For oblique propagation, TE and TM polarizations are considered separately. For TE polarization, the electric field is perpendicular to the plane of incidence. For TM polarization, the magnetic field is perpendicular to this plane.
+
+The main physical system consists of the photon mode of the microcavity and the exciton in the quantum well. In the weak-coupling regime, their energies are only weakly affected by each other. In the strong-coupling regime, new mixed states appear: the lower and upper polaritons.
+
+\clearpage
+\section{Microcavity structure and parameters}
+
+The following structure is considered:
+
+\[
+\mathrm{air}\,|\,(HL)^{23}\,|\,C_1\,|\,W\,|\,C_2\,|\,(LH)^{26}\,|\,\mathrm{air},
+\]
+
+where $H$ is the high-refractive-index GaAs layer, $L$ is the lower-index AlAs layer, $C_1$ and $C_2$ are the two parts of the GaAs cavity layer, and $W$ is the In$_{0.08}$Ga$_{0.92}$As quantum well. Light is incident from the left through the top DBR. On both sides of the cavity, an $L$ layer is adjacent to the GaAs cavity layer.
+
+\reportfigure{01_refractive_index_profile.png}{Refractive-index profile $n(z)$ of the multilayer microcavity. The figure is built directly from the chosen geometry and refractive indices, so it is not a result of solving the dispersion problem. The red line marks the center of the QW.}{fig:index-profile}
+
+Figure~\ref{fig:index-profile} shows two finite DBR mirrors and the wider cavity region between them. The QW is very thin compared with the total length of the structure, so on this scale it mainly indicates its position inside the cavity.
+
+As an experimental reference, we use the structure reported by P. Cilibrizzi et al., \textit{Polariton condensation in a strain-compensated planar microcavity with InGaAs quantum wells}, Applied Physics Letters 105, 191118 (2014): a $2\lambda$ cavity, 23 and 26 DBR periods, $6$~nm quantum wells, and a total Rabi splitting of about $8$~meV for six strongly coupled QWs.
+
+For the structure considered here, constant refractive indices are used:
+
+\[
+n_H=3.60,\qquad n_L=2.95,\qquad n_C=3.60,\qquad n_W=3.65.
+\]
+
+The exciton resonance energy at zero in-plane wave vector is fixed as
+
+\[
+E_X(0)=1.450\ \mathrm{eV}.
+\]
+
+Here $E_X(0)$ is the exciton energy at $k_\parallel=0$. The value $1.450$~eV is in the same energy range, around $1.45$~eV, where Cilibrizzi et al. observed polariton branches. It sets the center of the spectral range considered here and is not a result of our calculation.
+
+The corresponding wavelength in vacuum is
+
+\[
+\lambda_0=\frac{hc}{E_X(0)}\approx0.855\ \mu\mathrm m.
+\]
+
+The initial thicknesses of the quarter-wave DBR layers are
+
+\[
+d_H=\frac{\lambda_0}{4n_H}\approx59.4\ \mathrm{nm},
+\qquad
+ d_L=\frac{\lambda_0}{4n_L}\approx72.5\ \mathrm{nm}.
+\]
+
+For a $2\lambda$ cavity, the initial estimate of the total thickness of the cavity layer is
+
+\[
+L_C^{(0)}=\frac{2\lambda_0}{n_C}\approx475\ \mathrm{nm}.
+\]
+
+The final value of $L_C$ is determined from the resonance of the full DBR structure. The reason is that reflection from a DBR adds an extra phase shift and slightly changes the resonance condition.
+
+The quantum well has thickness
+
+\[
+d_{QW}=6\ \mathrm{nm}
+\]
+
+and replaces a GaAs region of the same thickness inside the cavity. Therefore,
+
+\[
+L_C=d_{C_1}+d_{QW}+d_{C_2}.
+\]
+
+\clearpage
+\section{Dispersion of uncoupled modes}
+
+\subsection{Cavity photon mode}
+
+In a planar cavity, the longitudinal component of the wave vector is fixed by the resonance condition, while $k_\parallel$ remains continuous. Therefore, the photon energy is
+
+\[
+E_C(k_\parallel)
+=
+\frac{\hbar c}{n_C}
+\sqrt{k_z^2+k_\parallel^2}.
+\]
+
+Using the mode energy at normal propagation, this expression can be written as
+
+\[
+E_C(k_\parallel)
+=
+\sqrt{
+E_C(0)^2+
+\left(\frac{\hbar c}{n_C}k_\parallel\right)^2
+}.
+\]
+
+For small $k_\parallel$, the dispersion becomes parabolic:
+
+\[
+E_C(k_\parallel)
+\approx
+E_C(0)+\frac{\hbar^2k_\parallel^2}{2m_{ph}},
+\]
+
+where
+
+\[
+m_{ph}=\frac{E_C(0)n_C^2}{c^2}.
+\]
+
+The parabolic form does not come from a nonzero rest mass of a free photon. It appears because the cavity fixes $k_z$: when only the in-plane wave vector changes, the square-root expression can be expanded in powers of $k_\parallel^2$.
+
+\subsection{Exciton in a quantum well}
+
+The quantum well confines the motion of the electron and hole along $z$, but the exciton center of mass remains free in the plane of the layer. Therefore, its dispersion is
+
+\[
+E_X(k_\parallel)
+=
+E_X(0)+\frac{\hbar^2k_\parallel^2}{2M_X},
+\]
+
+where $M_X$ is the exciton center-of-mass mass. The calculation uses
+
+\[
+M_X=0.5m_0.
+\]
+
+Since $M_X\gg m_{ph}$, the exciton branch is much flatter than the photon branch. The analytical plots use the same range $k_\parallel=0\ldots4\ \mu\mathrm m^{-1}$ as the later numerical calculations.
+
+These two uncoupled dispersions are not shown in a separate figure. They are plotted together with the polariton branches in the next figure. This makes it possible to see directly how the crossing of the bare photon and exciton modes becomes an avoided crossing after the coupling is switched on.
+
+\clearpage
+\section{Analytical polariton model}
+
+For a fixed in-plane wave vector $k_\parallel$, two degrees of freedom are considered: a photon in the microcavity and an exciton in the quantum well. In Kavokin et al., \textit{Microcavities}, Sections~5.8.1--5.8.2, this system is written as two coupled quantum modes:
+
+\[
+\hat H
+=
+\sum_{k_\parallel}
+E_C(k_\parallel)\hat B_{k_\parallel}^{\dagger}\hat B_{k_\parallel}
++
+\sum_{k_\parallel}
+E_X(k_\parallel)\hat X_{k_\parallel}^{\dagger}\hat X_{k_\parallel}
++
+\sum_{k_\parallel}
+g(k_\parallel)
+\left(
+\hat B_{k_\parallel}^{\dagger}\hat X_{k_\parallel}
++
+\hat X_{k_\parallel}^{\dagger}\hat B_{k_\parallel}
+\right).
+\]
+
+Here $\hat B_{k_\parallel}$ annihilates one photon in the cavity mode, while $\hat B_{k_\parallel}^{\dagger}$ creates one. Similarly, $\hat X_{k_\parallel}$ and $\hat X_{k_\parallel}^{\dagger}$ annihilate and create an exciton. The quantities $E_C(k_\parallel)$ and $E_X(k_\parallel)$ are the uncoupled photon and exciton energies, and $g$ is their coupling energy. The same $k_\parallel$ is conserved for the photon and exciton because the structure is uniform in the plane of the layers.
+
+In the considered range, the coupling is taken to be constant:
+
+\[
+g(k_\parallel)\approx g,
+\qquad
+\Omega_R=2g,
+\]
+
+where $\Omega_R$ is the Rabi splitting: the energy separation between the upper and lower polariton branches at the point where the bare photon and exciton modes would have the same energy.
+
+For each fixed $k_\parallel$, the Hamiltonian reduces to the matrix
+
+\[
+H(k_\parallel)=
+\begin{pmatrix}
+E_C(k_\parallel) & g\\
+g & E_X(k_\parallel)
+\end{pmatrix}
+=
+\begin{pmatrix}
+E_C(k_\parallel) & \Omega_R/2\\
+\Omega_R/2 & E_X(k_\parallel)
+\end{pmatrix}.
+\]
+
+The detuning between the uncoupled modes at an arbitrary $k_\parallel$ is defined as
+
+\[
+\Delta(k_\parallel)
+=
+E_C(k_\parallel)-E_X(k_\parallel).
+\]
+
+It is also useful to define the detuning at normal propagation:
+
+\[
+\delta
+=
+E_C(0)-E_X(0).
+\]
+
+If both uncoupled dispersions are written in the parabolic approximation, then
+
+\[
+\Delta(k_\parallel)
+=
+\delta
++
+\frac{\hbar^2k_\parallel^2}{2}
+\left(
+\frac{1}{m_{ph}}-\frac{1}{M_X}
+\right),
+\]
+
+where $m_{ph}$ is the effective cavity-photon mass and $M_X$ is the exciton center-of-mass mass in the QW plane. Since the exciton mass $M_X$ is much larger than the effective photon mass $m_{ph}$, the exciton branch changes slowly. Therefore, the change of detuning with $k_\parallel$ is mainly set by the photon branch.
+
+The eigenenergies are found from
+
+\[
+\det\!\left[H(k_\parallel)-E I\right]=0,
+\]
+
+which gives
+
+\[
+\left[E_C(k_\parallel)-E\right]
+\left[E_X(k_\parallel)-E\right]
+-g^2=0.
+\]
+
+The two solutions form the upper and lower polariton branches:
+
+\[
+E_{UP,LP}(k_\parallel)
+=
+\frac{E_C(k_\parallel)+E_X(k_\parallel)}{2}
+\pm
+\frac12
+\sqrt{\Delta(k_\parallel)^2+\Omega_R^2}.
+\]
+
+The index $UP$ corresponds to the ``$+$'' sign and denotes the upper polariton branch. The index $LP$ corresponds to the ``$-$'' sign and denotes the lower polariton branch. At exact resonance, $\Delta=0$,
+
+\[
+E_{UP}-E_{LP}=\Omega_R.
+\]
+
+Therefore, the crossing of the uncoupled modes is replaced by an avoided crossing, or anticrossing.
+
+
+In addition to the in-plane wave vector, dispersion is displayed against the
+external angle $\theta_{\rm ext}$ measured from the normal. Conservation of
+in-plane momentum gives
+\[
+k_\parallel(E,\theta_{\rm ext})
+=\frac{n_{\rm ext}E}{\hbar c}\sin\theta_{\rm ext}.
+\]
+Here the external medium is air, so $n_{\rm ext}=1$. An already calculated
+real-energy branch is displayed against
+\[
+\theta_{\rm ext}=\arcsin\left(\frac{\hbar c k_\parallel}{n_{\rm ext}E}\right).
+\]
+For a complex pole we use $E=\operatorname{Re}\mathcal E$, the real part of
+the complex eigenmode energy, in this visual transformation. A spectrum at
+fixed angle, $R(E,\theta)$, is calculated separately with
+$k_\parallel(E,\theta)$ evaluated for every energy.
+
+\reportfigure{02_analytical_polariton_dispersion.png}{Analytical photon, exciton and polariton dispersions at zero detuning. The original branches versus $k_\parallel$ are shown on the left and their angular representation for $n_{\rm ext}=1$ on the right. Energy is relative to $E_X(0)$.}{fig:analytical-dispersion}
+
+Figure~\ref{fig:analytical-dispersion} shows that the coupling replaces the crossing of the bare modes by an anticrossing. As $k_\parallel$ increases, the lower branch approaches the almost flat exciton dispersion, while the upper branch follows the photon dispersion more closely.
+
+A polariton is a linear combination of photon and exciton states. In the notation of Section~5.8.1 of the book, the Hopfield transformation is
+
+\[
+\hat a_{LP,k}
+=
+X_k\hat X_k-C_k\hat B_k,
+\qquad
+\hat a_{UP,k}
+=
+C_k\hat X_k+X_k\hat B_k.
+\]
+
+Here $\hat a_{LP,k}$ and $\hat a_{UP,k}$ correspond to the lower and upper polaritons. The quantities $C_k$ and $X_k$ are called the Hopfield coefficients. They satisfy the normalization condition
+
+\[
+|C_k|^2+|X_k|^2=1.
+\]
+
+The quantity $|C|^2$ gives the photon fraction of the polariton, and $|X|^2$ gives the exciton fraction. For the lower branch,
+
+\[
+|C_{LP}(k_\parallel)|^2
+=
+\frac12
+\left(
+1-
+\frac{\Delta(k_\parallel)}
+{\sqrt{\Delta(k_\parallel)^2+\Omega_R^2}}
+\right),
+\]
+
+\[
+|X_{LP}(k_\parallel)|^2
+=
+\frac12
+\left(
+1+
+\frac{\Delta(k_\parallel)}
+{\sqrt{\Delta(k_\parallel)^2+\Omega_R^2}}
+\right).
+\]
+
+For the upper branch, the fractions are interchanged:
+
+\[
+|C_{UP}(k_\parallel)|^2=|X_{LP}(k_\parallel)|^2,
+\qquad
+|X_{UP}(k_\parallel)|^2=|C_{LP}(k_\parallel)|^2.
+\]
+
+At $\Delta=0$, both polariton modes have equal photon and exciton fractions,
+
+\[
+|C|^2=|X|^2=\frac12.
+\]
+
+At large detuning, one branch becomes mainly photon-like, while the other becomes mainly exciton-like.
+
+\reportfigure{03_hopfield_coefficients.png}{Photon and exciton fractions of the lower and upper polaritons. The curves are calculated analytically from the eigenvectors of the same $2\times2$ model; $|C|^2$ and $|X|^2$ give the photon and exciton fractions, respectively.}{fig:hopfield}
+
+Figure~\ref{fig:hopfield} gives a simple way to read the later results: as $k_\parallel$ increases, the lower polariton becomes mainly exciton-like, while the upper polariton becomes mainly photon-like. This change of composition will later appear both in reflectivity and in the linewidths.
+
+\clearpage
+\section{Finite DBR microcavity}
+
+The analytical parabola does not include the finite number of mirror layers, the phase shift on reflection, or the difference between TE and TM polarization at nonzero $k_\parallel$. Therefore, we next use the transfer-matrix method (TMM). Its idea is simple: propagation inside each layer and reflection at each interface are described separately, and then the matrices of all layers are multiplied. The general method is described in Kavokin et al., \textit{Microcavities}, Sections~2.5--2.7.
+
+For layer $j$ with refractive index $n_j$ and thickness $d_j$, the longitudinal component of the wave vector is
+
+\[
+q_j(E,k_\parallel)
+=
+\sqrt{
+\left(\frac{n_jE}{\hbar c}\right)^2-k_\parallel^2
+}.
+\]
+
+When the wave propagates through a layer, its phase changes. For a layer of thickness $d_j$, the phase shift is
+
+\[
+\varphi_j=q_jd_j.
+\]
+
+Here $\varphi_j$ shows how many radians of phase are accumulated across layer $j$.
+
+To write the interface conditions for TE and TM polarization in the same form, auxiliary quantities $Y_j$ are introduced:
+
+\[
+Y_j^{TE}=n_j\cos\phi_j,
+\qquad
+Y_j^{TM}=\frac{\cos\phi_j}{n_j},
+\]
+
+where $\phi_j$ is the propagation angle inside layer $j$, and
+
+\[
+\cos\phi_j=
+\frac{q_j}{n_jE/(\hbar c)}.
+\]
+
+The quantity $Y_j$ is not a new material property. It is a convenient combination of $n_j$ and the angle $\phi_j$ that allows the boundary conditions for TE and TM waves to be written in the same form. These relations follow the notation of Section~2.5 of \textit{Microcavities}.
+
+In the basis of forward and backward waves,
+
+\[
+\mathbf v(z)=
+\begin{pmatrix}
+A^+(z)\\
+A^-(z)
+\end{pmatrix},
+\]
+
+the propagation matrix through a homogeneous layer is
+
+\[
+P_j=
+\begin{pmatrix}
+e^{iq_jd_j} & 0\\
+0 & e^{-iq_jd_j}
+\end{pmatrix}.
+\]
+
+The interface matrix for $i\rightarrow j$ is
+
+\[
+I_{i\rightarrow j}
+=
+\frac{1}{2Y_j}
+\begin{pmatrix}
+Y_i+Y_j & Y_j-Y_i\\
+Y_j-Y_i & Y_i+Y_j
+\end{pmatrix}.
+\]
+
+The total matrix $M$ connects the amplitudes on the left and right sides:
+
+\[
+\mathbf v_R=M\mathbf v_L.
+\]
+
+For light incident from the left,
+
+\[
+\mathbf v_L=
+\begin{pmatrix}
+1\\
+r
+\end{pmatrix},
+\qquad
+\mathbf v_R=
+\begin{pmatrix}
+t\\
+0
+\end{pmatrix}.
+\]
+
+Therefore,
+
+\[
+r=-\frac{M_{21}}{M_{22}},
+\qquad
+R=|r|^2.
+\]
+
+The same transfer matrix gives the transmitted amplitude
+\[
+t=M_{11}+M_{12}r=\frac{\det M}{M_{22}},
+\qquad \det M=\frac{Y_L}{Y_R}.
+\]
+For arbitrary external media, power transmittance is
+\[
+T=\frac{\operatorname{Re}Y_R}{\operatorname{Re}Y_L}|t|^2.
+\]
+Air is present on both sides here, so $T=|t|^2$. The quantity $A=1-R-T$
+is the incident-power fraction removed from the coherent reflected and
+transmitted channels. With $\gamma_X$ interpreted as non-radiative
+homogeneous loss, it may be called absorptance.
+
+For mixed polarization, let $a_j$ be incident flux-normalized TE/TM
+amplitudes, $\tau_j$ the corresponding complex transmission amplitudes,
+$T_j=|\tau_j|^2$, and $u$ an analyzer state normalized in the same basis.
+Then
+\[
+T_{\rm all}=\sum_{j=TE,TM}|a_j|^2T_j,\qquad
+T_u=\left|\sum_{j=TE,TM}u_j^*\tau_j a_j\right|^2.
+\]
+TE/TM-basis rotation and polarization splitting in microcavities are
+treated by \href{https://doi.org/10.1364/AO.33.005080}{McGuire and Chipman,
+\textit{Appl. Opt.} \textbf{33}, 5080 (1994)} and
+\href{https://doi.org/10.1103/PhysRevB.59.5082}{Panzarini et al.,
+\textit{Phys. Rev. B} \textbf{59}, 5082 (1999)}.
+
+First, the exciton response is switched off, while the InGaAs layer itself remains inside the cavity. This defines the photon resonance of exactly the same geometry without exciton--photon coupling. The cavity thickness $L_C$ is adjusted so that at $k_\parallel=0$,
+
+\[
+E_C^{bg}(0)=E_X(0)
+\]
+
+for zero detuning. This removes an additional shift of the photon mode caused by the difference between $n_W$ and $n_C$.
+
+For the dispersion calculations, the range $k_\parallel=0\ldots4\ \mu\mathrm m^{-1}$ is used with a step of about $0.0167\ \mu\mathrm m^{-1}$. The original reflectivity spectrum is calculated on an energy grid with a step of $0.0005$~meV. To make very narrow resonances visible on the map, the displayed value is the minimum reflectivity inside an energy bin of width $0.050$~meV.
+
+We denote this displayed quantity as
+
+\[
+R_{\mathrm{bin}}(E',k_\parallel)
+=
+\min_{E\in\mathrm{bin}(E')}R_{TE}(E,k_\parallel),
+\]
+
+where $E'$ is the center of the corresponding energy bin. This binning is used only for visualization and does not change the calculation of the structure itself.
+
+\reportfigure{04_bare_cavity_reflectivity_map.png}{TE reflectivity of the finite background DBR cavity without the exciton response. The left map is $R(E,k_\parallel)$; the right map is calculated directly as $R(E,\theta_{\rm ext})$, evaluating $k_\parallel(E,\theta)$ at every energy. The minimum within a $0.050$-meV energy bin is displayed only for visualization.}{fig:bare-reflectivity}
+
+Figure~\ref{fig:bare-reflectivity} shows one photon branch. Its smooth increase with $k_\parallel$ is the usual behavior of a planar-cavity mode, but here the branch is obtained from the full multilayer calculation rather than from an analytical formula.
+
+For a quantitative comparison, the photon energy in the finite DBR structure is obtained from a photonic eigenmode of the open cavity, not from the ideal-cavity expression. With the chosen transfer-matrix convention, it satisfies
+
+\[
+M_{22}(\mathcal E_C^{bg},k_\parallel)=0.
+\]
+
+The numerical photon dispersion is given by the real part of the pole, $\operatorname{Re}\mathcal E_C^{bg}(k_\parallel)$. Comparison with the ideal cavity shows how finite DBRs and their reflection phase change the shape of the photon branch.
+
+\reportfigure{05_bare_photon_dispersion_comparison.png}{Photon dispersions of the ideal planar cavity and finite DBR structure, the latter obtained from $\operatorname{Re}\mathcal E_C^{bg}$. The original $k_\parallel$ branches and their visual angular representations are shown. Both satisfy $E_C(0)=E_X(0)$.}{fig:bare-dispersion-comparison}
+
+In Figure~\ref{fig:bare-dispersion-comparison}, the two models almost coincide at small $k_\parallel$, but the numerical branch becomes noticeably steeper at larger $k_\parallel$. This shows the effect of finite DBRs: the reflection phase and the field penetration into the mirrors change with energy and angle, while the ideal-cavity formula does not include these effects.
+
+
+Before introducing the full exciton response, we compare two effective
+$2\times2$ models. One uses the ideal planar-cavity photon dispersion and
+the other uses the real part of the background finite-DBR photon pole:
+\[
+E_C^{\rm ideal}(k_\parallel)
+=\sqrt{E_X(0)^2+\left(\frac{\hbar c k_\parallel}{n_C}\right)^2},
+\qquad
+E_C^{\rm finite}(k_\parallel)
+=\operatorname{Re}\mathcal E_C^{bg}(k_\parallel).
+\]
+Both satisfy $E_C^{\rm ideal}(0)=E_C^{\rm finite}(0)=E_X(0)$.
+The same matrix is diagonalized for each photon branch,
+\[
+H(k_\parallel)=
+\begin{pmatrix}E_C(k_\parallel)&g\\g&E_X(k_\parallel)\end{pmatrix},
+\qquad g=\Omega_{\rm target}/2,\quad
+\Omega_{\rm target}=8/\sqrt6\ {\rm meV}\approx3.27\ {\rm meV}.
+\]
+In TMM, the radiative parameter $\Gamma_0$ is calibrated from the splitting
+of the real parts of the complex poles. In the presence of loss, that
+procedure and $g=\Omega_{\rm target}/2$ in a Hermitian matrix need not be
+equivalent at the $\mu$eV level.
+
+\reportfigure{06_2x2_photon_model_comparison.png}{Influence of the photon-dispersion model on the $2\times2$ polariton energies. The same coupling is evaluated with either the ideal-cavity photon dispersion or the finite-DBR photon branch. The lower panel shows the LP and UP differences at equal $k_\parallel$.}{fig:2x2-photon-model}
+
+The difference $\delta E_\alpha^{\rm photon}
+=E_\alpha^{2\times2,\rm ideal}-E_\alpha^{2\times2,\rm finite}$
+in Figure~\ref{fig:2x2-photon-model} isolates the effect of the photon
+dispersion. Accuracy relative to the full TMM calculation is quantified
+later using separate energy residuals.
+
+\clearpage
+\section{Quantum well in the microcavity}
+
+The quantum well $W$ has a finite thickness $d_{QW}=6$~nm and refractive index $n_W$. The InGaAs layer itself affects light propagation as an ordinary dielectric. In addition, it contains an exciton transition: near the exciton energy $E_X$, the quantum well interacts strongly with light. The resonant response is described using the single-QW model from Sections~4.4.2 and 4.4.4 of \textit{Microcavities}.
+
+The exciton energy at a given $k_\parallel$ is again
+
+\[
+E_X(k_\parallel)
+=
+E_X(0)
++
+\frac{\hbar^2k_\parallel^2}{2M_X},
+\]
+
+where $E_X(0)$ is the exciton resonance energy at $k_\parallel=0$, and $M_X$ is the exciton center-of-mass mass in the QW plane.
+
+For the InGaAs layer, the longitudinal component of the wave vector is
+
+\[
+q_W(E,k_\parallel)
+=
+\sqrt{
+\left(\frac{n_WE}{\hbar c}\right)^2-k_\parallel^2
+}.
+\]
+
+We denote the propagation angle inside the QW by $\phi_W$. Then
+
+\[
+\cos\phi_W
+=
+\frac{q_W}{n_WE/(\hbar c)}.
+\]
+
+The reflection amplitude of a single QW has a resonant form; see \textit{Microcavities}, Section~4.4.2. In energy units we use
+
+\[
+r_X(E,k_\parallel)
+=
+\frac{i\Gamma_0^{pol}}
+{E_X(k_\parallel)-E-i\left(\Gamma_0^{pol}+\gamma_X\right)}.
+\]
+
+
+Here $r_X$ is a complex resonant reflection amplitude, while
+$\Gamma_0^{pol}$ and $\gamma_X$ are radiative and additional homogeneous
+broadening parameters. The denominator describes a single homogeneously
+broadened exciton transition: exponential decay of coherent polarization
+in time gives a frequency-domain pole $(E_X-E-i\gamma)^{-1}$. In a narrow
+interval around resonance, where the energy dependence of
+$\Gamma_0^{pol}(E)$ is negligible, the squared magnitude of the isolated
+response has a Lorentzian line shape. Gaussian broadening is associated
+primarily with an inhomogeneous distribution of transition energies;
+that effect is not included. The complete multilayer reflectivity need
+not have a Lorentzian shape because of its interference background.
+
+The parameters $\Gamma_0^{pol}$ and $\gamma_X$ enter the denominator as
+half widths. For an isolated Lorentzian profile,
+\[
+\gamma_{QW}^{pol}=\Gamma_0^{pol}+\gamma_X\quad(\mathrm{HWHM}),
+\qquad
+\Gamma_{QW}^{pol}=2\gamma_{QW}^{pol}\quad(\mathrm{FWHM}).
+\]
+For an open-cavity eigenmode,
+$\mathcal E=E_{\rm mode}-i\Gamma_{\rm pole}/2$,
+where $E_{\rm mode}=\operatorname{Re}\mathcal E$ is the real part of the
+complex eigenmode energy and
+$\Gamma_{\rm pole}=-2\operatorname{Im}\mathcal E$ is the pole linewidth
+parameter. It equals the spectral FWHM for an isolated Lorentzian
+resonance. The position $E_{R_{\min}}$ and width of a complete reflectivity
+dip can differ from $\operatorname{Re}\mathcal E$ and
+$\Gamma_{\rm pole}$ because of interference with a non-resonant background.
+
+The transmission amplitude is related to the reflection amplitude by
+
+\[
+t_X=1+r_X,
+\]
+
+where $t_X$ is the transmission amplitude of the resonant QW.
+
+For oblique propagation, the radiative parameter depends on polarization. According to Section~4.4.4 of the book,
+
+\[
+\Gamma_0^{TE}
+=
+\frac{\Gamma_0}{\cos\phi_W},
+\qquad
+\Gamma_0^{TM}
+=
+\Gamma_0\cos\phi_W,
+\]
+
+where $\Gamma_0$ is the radiative HWHM at normal incidence. At $k_\parallel=0$, we have $\phi_W=0$, and therefore
+
+\[
+\Gamma_0^{TE}=\Gamma_0^{TM}=\Gamma_0.
+\]
+
+The exciton resonant response is included in the same transfer-matrix calculation through
+
+\[
+T_X
+=
+\frac{1}{t_X}
+\begin{pmatrix}
+t_X^2-r_X^2 & r_X\\
+-r_X & 1
+\end{pmatrix}.
+\]
+
+Here $T_X$ describes only the exciton resonance. Propagation through the finite InGaAs thickness is described by
+
+\[
+P_W(\ell)
+=
+\begin{pmatrix}
+e^{iq_W\ell} & 0\\
+0 & e^{-iq_W\ell}
+\end{pmatrix},
+\]
+
+where $\ell$ is the propagation distance inside the QW. If the exciton sheet is placed at the center of a layer of thickness $d_{QW}$, the full quantum-well block is
+
+\[
+M_{QW}
+=
+I_{W\rightarrow C}
+P_W(d_{QW}/2)
+T_X
+P_W(d_{QW}/2)
+I_{C\rightarrow W}.
+\]
+
+The matrices $I_{C\rightarrow W}$ and $I_{W\rightarrow C}$ describe the GaAs--InGaAs and InGaAs--GaAs interfaces. If the exciton resonance is switched off, then
+
+\[
+T_X=I,
+\]
+
+but the InGaAs layer with refractive index $n_W$ and thickness $d_{QW}$ remains in the structure. This structure defines the background photon resonance $E_C^{bg}$. The index $bg$ means ``background'': the ordinary refractive index of the QW is included, but its exciton resonance is switched off.
+
+The quantum well replaces a GaAs region of the same thickness inside the cavity. Therefore, the total cavity thickness remains constant:
+
+\[
+L_C=d_{C_1}+d_{QW}+d_{C_2}.
+\]
+
+If $z_{QW}$ is the coordinate of the QW center measured from the left cavity boundary, then
+
+\[
+d_{C_1}=z_{QW}-\frac{d_{QW}}{2},
+\]
+
+\[
+d_{C_2}=L_C-z_{QW}-\frac{d_{QW}}{2}.
+\]
+
+Thus, changing the QW position changes $d_{C_1}$ and $d_{C_2}$ but does not increase the total thickness $L_C$.
+
+For a qualitative comparison, the same physical idea can be described by a simpler model of two coupled resonances. Including losses, it can be written as
+
+\[
+\left(E_X-E-i\gamma_X\right)
+\left(E_C-E-i\frac{\Gamma_C}{2}\right)
+=g^2,
+\]
+
+where $E_C$ is the photon resonance energy without exciton coupling, $\Gamma_C$ is the photon FWHM, $E_X$ is the exciton energy, and $g$ is the exciton--photon coupling energy. In the limit of small losses,
+
+\[
+\Omega_R=2g.
+\]
+
+This relation shows the physical meaning of the full model: the exciton and photon resonances again form two coupled branches, as in the $2\times2$ matrix. The difference is that the transfer-matrix method also includes the finite DBR mirrors, the QW position inside the standing-wave field, and the polarization.
+
+The parameter $\Gamma_0$ is determined from the coupling strength of one QW to the light field. For a numerical reference, we use the same experiment by Cilibrizzi et al. with a $2\lambda$ GaAs microcavity and In$_{0.08}$Ga$_{0.92}$As quantum wells. In that sample, three pairs of quantum wells are placed close to field antinodes. Each pair contains two QWs, so the number of strongly coupled wells is $3\times2=6$. Two additional QWs in the same sample are placed close to field minima and mainly collect carriers, so they are not included in this number. For the six strongly coupled QWs, the observed total Rabi splitting was about $8$~meV. If the individual QWs experience approximately the same field, the collective coupling increases approximately as $\sqrt{N}$. Therefore, the reference splitting for one QW is
+
+\[
+\Omega_R^{(1)}
+\approx
+\frac{8}{\sqrt{6}}\ \mathrm{meV}
+\approx3.27\ \mathrm{meV}.
+\]
+
+Here $N=6$ comes directly from the three QW pairs: $N=3\times2$. The value $\Omega_R^{(1)}$ is an estimate of the splitting that one such QW would produce in a comparable field. The parameter $\Gamma_0$ is then adjusted so that at zero detuning, $E_C(0)=E_X(0)$, and at $k_\parallel=0$,
+
+\[
+\operatorname{Re}\mathcal E_{UP}(0)
+-
+\operatorname{Re}\mathcal E_{LP}(0)
+=
+3.27\ \mathrm{meV},
+\]
+
+where $\mathcal E_{LP}$ and $\mathcal E_{UP}$ are the energies of the lower and upper polariton modes including their finite lifetimes. The meaning of this complex-energy notation is introduced below.
+
+\clearpage
+\section{Polariton dispersion from the transfer-matrix method}
+
+After the exciton response $T_X$ is switched on, one photon line in the reflectivity spectrum splits into two polariton branches. The lower branch is denoted by $LP$, and the upper branch by $UP$. Their shapes depend on both the photon and exciton dispersions and on light propagation through the finite DBR mirrors.
+
+The same $k_\parallel$ grid and the same original energy grid as above are used for this map. For visualization, a narrower energy bin of $0.025$~meV is used because the two nearby polariton features must now be resolved.
+
+\reportfigure{07_polariton_reflectivity_map_te.png}{TE reflectivity of the microcavity with the QW exciton response. The left map is versus $k_\parallel$ and the right map is calculated at fixed external angle. In both, the minimum within a $0.025$-meV energy bin serves only to display the two polariton features.}{fig:polariton-reflectivity}
+
+In Figure~\ref{fig:polariton-reflectivity}, the single photon line from Figure~\ref{fig:bare-reflectivity} becomes two branches. The lower branch becomes weaker in reflectivity as $k_\parallel$ increases, which is consistent with Figure~\ref{fig:hopfield}: its photon fraction decreases.
+
+
+At this stage the reflectivity map identifies two spectral features of
+the full structure. The quantitative comparison of $2\times2$
+eigenenergies, reflectivity minima and complex poles is given in the final
+section. Minima for that comparison are found from unbinned spectra.
+
+\clearpage
+\section{Cavity field and QW position}
+
+The QW position affects its coupling to the photon: the coupling is stronger where the standing-wave field is stronger. For the cavity without exciton--photon coupling at $k_\parallel=0$, the standing-wave field is reconstructed. If the amplitudes $A_j^+$ and $A_j^-$ are known at the left boundary of layer $j$, then inside the layer
+
+\[
+E_j(\xi)
+=
+A_j^+e^{iq_j\xi}
++
+A_j^-e^{-iq_j\xi}.
+\]
+
+For comparison, the normalized intensity is used:
+
+\[
+\mathrm{I}(z)=
+\frac{|E(z)|^2}
+{\max_{\mathrm{cavity}}|E(z)|^2}.
+\]
+
+The field profile is reconstructed numerically with a step of $0.5$~nm. For the chosen length $L_C=474.87$~nm, approximately $2\lambda_0/n_C$, the intensity period is $\lambda_0/(2n_C)\simeq118.76$~nm. Thus, the profile contains four intensity periods (two electric-field periods): three interior antinodes and maxima at both cavity boundaries. The antinode positions are set by the DBR reflection phases. Viewed from the cavity, both mirrors start with an $L$ layer and have $r\simeq+1$ at the central frequency, so incident and reflected waves add at the boundary. The field extends into the mirrors.
+
+A single QW is placed at the antinode closest to the cavity center, with coordinate $z_0\simeq237.42$~nm, and is then displaced from this position. The QW thickness is $6$~nm; at this position, the amplitude at both QW boundaries is $|E|/|E|_{\max}\simeq0.997$. Placement at an antinode enhances coupling, but maximum field intensity at the cavity boundaries is not a requirement for QW operation.
+
+To separate the effect of QW position from a change in detuning, for each displacement we first use the same structure with the exciton resonance switched off and retune the photon resonance to the same value $E_C^{bg}(0)$. After switching the exciton response back on, the separation between the real parts of the two polariton poles is found:
+
+\[
+\Delta E_{\mathrm{pole}}(\Delta z_{QW})
+=
+\operatorname{Re}
+\left[
+\mathcal E_{UP}(0)-\mathcal E_{LP}(0)
+\right],
+\]
+
+where $\Delta z_{QW}$ is the displacement of the QW center from the selected field antinode.
+
+For one QW, there is a simple expectation: the coupling energy is proportional to the electric-field amplitude at the QW position,
+
+\[
+g(z_{QW})\propto |E(z_{QW})|.
+\]
+
+Since $\mathrm{I}(z)\propto|E(z)|^2$, a normalized field-amplitude estimate of the splitting is written as
+
+\[
+2g_{\mathrm{field}}(\Delta z_{QW})=\Omega_1\sqrt{\frac{\mathrm{I}(z_0+\Delta z_{QW})}{\mathrm{I}(z_0)}}.
+\]
+
+Here $\Omega_1=3.266$~meV is the separation between the real parts of the poles for one QW at the selected position $z_0$, imposed during calibration. The square root of the intensity ratio equals the field-amplitude ratio. The notation $2g_{\mathrm{field}}$ denotes this estimate: with finite losses, the pole splitting is not strictly equal to twice the coupling energy $2g$. The expression uses the original field profile and is evaluated separately from full TMM.
+
+\reportfigure{09_qw_position_coupling.png}{QW position and exciton--photon coupling strength. The upper panel shows the normalized resonant-field intensity of the background cavity with the exciton response switched off; points mark interior antinodes and the red line marks the initial QW position. The lower panel compares the field-amplitude estimate of the splitting with the separation between the real parts of the full-TMM polariton poles.}{fig:qw-position}
+
+The upper panel of Figure~\ref{fig:qw-position} shows the coordinate $z$ in $\mu$m over the entire cavity. The lower panel uses the displacement $\Delta z_{QW}$ in nm around the central antinode, between the nearest nodes about $59.38$~nm away. For each displacement, the QW position relative to the cavity center is held fixed during resonance tuning; the change in $L_C$ does not exceed $0.17$~nm.
+
+The estimate agrees with full TMM over most of the range, consistent with coupling controlled by the local field amplitude. Near nodes, losses become more important and the real part of the splitting decreases faster than the field estimate. The poles can still retain different imaginary parts.
+
+\clearpage
+\section{Effect of the number of DBR pairs}
+
+The finite transmission of a DBR causes photon leakage from the cavity. Increasing the number of mirror pairs increases the reflectivity, makes the resonance narrower, and increases the photon-mode lifetime.
+
+For the complex energy of the photon mode, where $E_C$ denotes the resonance position,
+
+\[
+\mathcal E_C=E_C-i\frac{\Gamma_C}{2},
+\]
+
+the linewidth is
+
+\[
+\Gamma_C=-2\operatorname{Im}\mathcal E_C.
+\]
+
+The corresponding cavity Q-factor is
+
+\[
+Q_C=\frac{E_C}{\Gamma_C}.
+\]
+
+Therefore, a smaller linewidth also means a larger Q-factor and a longer photon-mode lifetime.
+
+For comparison, the following mirror configurations are considered:
+
+\[
+(N_t,N_b)=(8,8),\ (12,12),\ (16,16),\ (23,26).
+\]
+
+For each number of pairs, the cavity is retuned to the same energy at $k_\parallel=0$. Therefore, the change in $\Gamma_C$ is connected specifically with the mirrors.
+
+In this series, only leakage through finite ideal DBRs is included. Other losses are not modeled.
+
+Therefore, the result describes mirror leakage rather than the full experimental linewidth.
+
+\reportfigure{10_dbr_linewidth_sweep.png}{Photon-mode linewidth caused by leakage through finite DBRs as a function of the number of mirror pairs. All points are obtained numerically from the complex photon pole: $\Gamma_C^{\mathrm{mirror}}=-2\operatorname{Im}\mathcal E_C$. The logarithmic scale shows the rapid decrease of losses as the number of pairs increases.}{fig:dbr-linewidth}
+
+Figure~\ref{fig:dbr-linewidth} shows the expected trend: with more DBR pairs, less light leaks through the mirrors and the resonance becomes narrower. For the $(23,26)$ structure, the calculated linewidth is very small because the model describes idealized mirror leakage rather than all losses present in an experimental sample.
+
+\clearpage
+\section{TE--TM splitting and transmission for a fixed tangential polarization}
+
+At normal propagation, TE and TM directions are equivalent. Therefore,
+
+\[
+E^{TE}(0)=E^{TM}(0).
+\]
+
+At $k_\parallel\neq0$, the phase response of the DBRs and the QW response become polarization dependent. Sections~2.7 and 4.4.4 of \textit{Microcavities} show that TE and TM dispersions can have different curvatures.
+
+For the polariton branches, we define
+
+\[
+\Delta_{TE-TM}^{LP}(k_\parallel)
+=
+E_{LP}^{TE}(k_\parallel)-E_{LP}^{TM}(k_\parallel),
+\]
+
+\[
+\Delta_{TE-TM}^{UP}(k_\parallel)
+=
+E_{UP}^{TE}(k_\parallel)-E_{UP}^{TM}(k_\parallel).
+\]
+
+Both quantities are obtained from the same numerical calculation. Figure~\ref{fig:te-tm} shows all four branches versus $k_\parallel$ and their small differences separately in $\mu$eV.
+
+\reportfigure{11_te_tm_polariton_splitting.png}{TE--TM splitting from the real parts of complex poles. The upper LP/UP curves are plotted versus $k_\parallel$: TE is a broad translucent solid line and TM a thin dashed line. Their difference is barely visible on the meV scale, so $E^{TE}-E^{TM}$ is plotted separately below in $\mu$eV at the same $k_\parallel$.}{fig:te-tm}
+
+The complex TE and TM poles are found on the same $k_\parallel=0\ldots4\ \mu\mathrm m^{-1}$ grid as the other dispersion branches. A separate energy grid is not needed for the poles: the complex root is refined directly for every $k_\parallel$ value.
+
+On the full scale of Figure~\ref{fig:te-tm}, the TE and TM branches almost coincide. The difference panel shows a splitting that grows to tens of $\mu$eV. For the UP branch, the sign of the difference changes. This only means that the polarization with the slightly higher energy changes as $k_\parallel$ increases.
+
+
+In Figure~\ref{fig:te-tm-3d}, the upper surfaces show the positions of
+transmission-spectrum maxima for a fixed incident tangential field
+along $x$: $E_x=E_0$, $E_y=0$. Both transmitted polarizations are collected without an analyzer. Let $k_\parallel=\sqrt{k_x^2+k_y^2}$,
+$\varphi=\operatorname{atan2}(k_y,k_x)$ and
+$\sin\theta_{\rm ext}=\hbar c k_\parallel/(n_{\rm ext}E)$, where $\theta_{\rm ext}$ is the
+entrance-medium incidence angle ($n_{\rm ext}=1$). The matrices $M_j$,
+$j=TE,TM$, are evaluated at each energy and $k_\parallel$.
+With air on both sides,
+\[
+t_j=\frac{\det M_j}{(M_j)_{22}},\qquad T_j=|t_j|^2.
+\]
+In an isotropic planar structure, the TE and TM channels are independent.
+For $k_\parallel\ne0$, they form the local eigenpolarization basis
+associated with the plane of incidence. At $k_\parallel=0$, the channels
+are degenerate and the transverse basis can be chosen arbitrarily.
+The fixed incident field sets their contributions to the measured spectrum.
+
+The transversality condition $\mathbf{k}\cdot\mathbf{E}=0$ determines
+$E_z$ for fixed $E_x=E_0$. The tangential projection of the TM field is
+$E_{TM}^{in}\cos\theta_{\rm ext}=E_0\cos\varphi$, so the amplitudes
+along the unit polarization vectors are
+\[
+E_{TM}^{in}=\frac{E_0\cos\varphi}{\cos\theta_{\rm ext}},\qquad
+E_{TE}^{in}=-E_0\sin\varphi.
+\]
+When both orthogonal output polarizations are collected without an
+analyzer, their transmitted powers add without an interference term;
+this also holds for coherent incident light.
+Normalization to the total incident power gives
+\[
+T_x(E,k_\parallel,\varphi)=
+\frac{\cos^2\varphi\,T_{TM}(E,k_\parallel)
++\cos^2\theta_{\rm ext}\sin^2\varphi\,T_{TE}(E,k_\parallel)}
+{\cos^2\varphi+\cos^2\theta_{\rm ext}\sin^2\varphi}.
+\]
+In the isotropic structure, $M_j$ are independent of azimuth; azimuth
+changes the polarization weights. Thus the black $k_y=0$ cut gives
+$T_x=T_{TM}$, and the green $k_x=0$ cut gives $T_x=T_{TE}$.
+
+Within each region $\alpha=LP,UP$, the local maxima
+$E_{\alpha,m}(k_\parallel,\varphi)$ satisfy
+\[
+\left.\frac{\partial T_x}{\partial E}\right|_{E_{\alpha,m}}=0,
+\qquad
+\left.\frac{\partial^2T_x}{\partial E^2}\right|_{E_{\alpha,m}}<0.
+\]
+The upper panels show $E_{\alpha,m}-E_X(0)$ in meV for all detected
+maxima; colour gives $T_x(E_{\alpha,m},k_\parallel,\varphi)$.
+The strongest maximum is selected for the lower panels:
+\[
+\begin{aligned}
+m_*&=\operatorname*{arg\,max}_{m}
+T_x(E_{\alpha,m},k_\parallel,\varphi),\\
+\delta E_{\alpha,x}
+&=E_{\alpha,m_*}
+-\frac{E_{\alpha,\rm peak}^{TM}+E_{\alpha,\rm peak}^{TE}}{2}.
+\end{aligned}
+\]
+Here $E_{\alpha,\rm peak}^{j}$ is the peak position of the pure
+$j$ spectrum at the same $k_\parallel$; $\delta E_{\alpha,x}$ is shown
+in $\mu$eV. Gaps in the lower surfaces mark switches of the strongest
+peak. These quantities are obtained from transmission spectra;
+eigenmode energies are shown separately in Figure~\ref{fig:te-tm}.
+\reportfigure{12_fixed_x_transmission_peaks.png}{Transmission maxima for fixed tangential $E_x$, collecting both output polarizations. The upper panels show $E_{\alpha,m}-E_X(0)$ for all detected LP/UP maxima; colour gives $T_x$ at each maximum. The black $k_y=0$ cut is pure TM and the green $k_x=0$ cut is TE. The lower panels show $\delta E_{\alpha,x}$ of the strongest maximum relative to the mean pure TE/TM peak energy. Gaps in the lower panels mark peak switches. Axis limits match within each row.}{fig:te-tm-3d}
+
+\clearpage
+\section{Open microcavity: mode energies and decay}
+
+The DBR mirrors reflect light very well, but not perfectly. Therefore, photons and polaritons can gradually escape from the microcavity. A resonance has not only a central energy but also a finite linewidth: the faster energy leaves the cavity, the broader the spectral line and the shorter the mode lifetime.
+
+These two quantities can be combined in a complex energy,
+
+\[
+\mathcal E(k_\parallel)
+=
+E(k_\parallel)-i\frac{\Gamma(k_\parallel)}{2}.
+\]
+
+Here $E_{\rm mode}=\operatorname{Re}\mathcal E$ is the real part of
+the complex eigenmode energy, and
+$\Gamma_{\rm pole}=-2\operatorname{Im}\mathcal E$ is its decay and linewidth
+parameter. It equals the spectral FWHM for an isolated Lorentzian
+resonance; the position and width of a complete reflectivity dip may
+differ because of interference with the non-resonant background. With
+$|\psi(t)|^2\propto\exp(-\Gamma_{\rm pole}t/\hbar)$, the characteristic
+lifetime is
+\[
+\tau(k_\parallel)=\frac{\hbar}{\Gamma_{\rm pole}(k_\parallel)}.
+\]
+
+To find such a mode, we remove the externally incident wave and look for a field that can exist in the cavity by itself and only leak outward through the mirrors. With the chosen transfer-matrix convention, this condition is
+
+\[
+M_{22}(\mathcal E,k_\parallel)=0.
+\]
+
+The complex poles are calculated on the same $k_\parallel$ grid with a step of about $0.0167\ \mu\mathrm m^{-1}$. Unlike the reflectivity map, no separate energy grid is scanned here: for each $k_\parallel$, the complex root is refined directly. This description of open modes is discussed in Kavokin et al., \textit{Microcavities}, Section~2.6.
+
+For the lower and upper polaritons, two complex energies $\mathcal E_{LP}$ and $\mathcal E_{UP}$ are obtained. Their real parts give the already familiar branches $E_{LP}$ and $E_{UP}$, while their imaginary parts give the linewidths
+
+\[
+\Gamma_{LP,UP}(k_\parallel)
+=-2\operatorname{Im}\mathcal E_{LP,UP}(k_\parallel).
+\]
+
+Thus, along the same dispersion branch, one can describe both how the polariton energy changes and how quickly the mode decays. The real parts of the poles are included in the final quantitative comparison of the three energy definitions. In this section, the main interest is the imaginary part, that is, the linewidth.
+
+For comparison with the simple $2\times2$ model, losses can be added directly to its matrix:
+
+\[
+H=
+\begin{pmatrix}
+E_C-i\Gamma_C/2 & \Omega_R/2\\
+\Omega_R/2 & E_X-i\Gamma_X^{nr}/2
+\end{pmatrix}.
+\]
+
+Here $\Gamma_C$ is the photon-resonance linewidth, and $\Gamma_X^{nr}=2\gamma_X$ is the non-radiative linewidth of the exciton transition. This matrix gives a simple physical interpretation: a polariton that is more photon-like inherits more of the photon losses, while a more exciton-like mode inherits more of the exciton broadening.
+
+In the weak-loss limit, this can be approximately written using the Hopfield coefficients:
+
+\[
+\Gamma_{LP}
+\approx
+|C_{LP}|^2\Gamma_C
++
+|X_{LP}|^2\Gamma_X^{nr},
+\]
+
+\[
+\Gamma_{UP}
+\approx
+|C_{UP}|^2\Gamma_C
++
+|X_{UP}|^2\Gamma_X^{nr}.
+\]
+
+These expressions are used only for physical interpretation. The linewidth curves below are not generated from this approximation; they are obtained directly from the imaginary parts of the complex poles of the full multilayer structure.
+
+\reportfigure{13_polariton_linewidths.png}{Complex-pole linewidth parameters $\Gamma_{LP,UP}=-2\operatorname{Im}\mathcal E_{LP,UP}$ versus $k_\parallel$ and external angle. The angular curves are visual transformations of the already calculated fixed-$k_\parallel$ modes.}{fig:polariton-linewidths}
+
+The connection with Figure~\ref{fig:hopfield} is especially clear here. At $k_\parallel=0$, both branches have similar photon/exciton composition and similar linewidths. Then the LP becomes more exciton-like and its linewidth approaches the exciton linewidth, while the UP becomes more photon-like and its linewidth decreases toward the narrow photon-mode linewidth shown in Figure~\ref{fig:dbr-linewidth}.
+
+The reflectivity minima are compared with the real parts of the poles in the final section.
+
+\clearpage
+\section{Collective coupling of several quantum wells}
+
+Up to this point, one active QW has been considered. In the experimental sample of Cilibrizzi et al., three pairs of quantum wells were placed near antinodes of the standing-wave field. Therefore, six QWs were strongly coupled to the light field. Here, this case is used only as an additional test of collective coupling; the exact epitaxial structure of each QW pair is not reproduced.
+
+First, consider the simple physical idea. If one QW is coupled to the photon mode with coupling energy $g_1$, then for several identical QWs coupled to the same photon mode, the effective coupling is
+
+\[
+g_N=
+\sqrt{g_1^2+g_2^2+\ldots+g_N^2}.
+\]
+
+If all wells are in regions with similar field amplitude, then $g_i\approx g_1$, and therefore
+
+\[
+g_N\approx g_1\sqrt{N_{QW}},
+\]
+
+while the Rabi splitting should scale as
+
+\[
+\Omega_R(N_{QW})\approx\Omega_R(1)\sqrt{N_{QW}}.
+\]
+
+This is the analytical expectation. It explains why several QWs increase the coupling: they all interact collectively with the same photon mode.
+
+The numerical model uses $N_{QW}=1,2,4,6$ equivalent active QWs. They are placed in strong-field regions identified from the profile in Figure~\ref{fig:qw-position}. The exact barrier structure inside each experimental QW pair is not specified here: two nearby wells around one antinode are treated as two identical exciton contributions in the same field region. The total cavity thickness is kept constant.
+
+For each $N_{QW}$, the exciton response is first switched off and the photon resonance is retuned to zero detuning. Then the exciton response is switched on, and the two complex polariton poles are found at $k_\parallel=0$. The numerical splitting is defined as
+
+\[
+\Omega_R^{\mathrm{num}}(N_{QW})
+=
+\operatorname{Re}
+\left[
+\mathcal E_{UP}(0)-\mathcal E_{LP}(0)
+\right].
+\]
+
+No separate energy grid is used here: the two poles are found directly for each of the four values of $N_{QW}$.
+
+\reportfigure{14_multiple_qw_scaling.png}{Collective enhancement of the coupling for several quantum wells. The circles show $\Omega_R^{\mathrm{num}}$, obtained numerically from the poles of the multilayer structure for $N_{QW}=1,2,4,6$. The line shows the analytical dependence $\Omega_R(1)\sqrt{N_{QW}}$.}{fig:multi-qw}
+
+Figure~\ref{fig:multi-qw} shows that the numerical calculation follows the $\sqrt{N_{QW}}$ dependence. This means that the model reproduces the expected collective enhancement of the coupling.
+
+It is important that the value for one QW was chosen earlier from the experimental reference $8/\sqrt{6}\approx3.27$~meV. Therefore, the point near $8$~meV at $N_{QW}=6$ is not an independent prediction of the experimental result. Here, the test concerns the scaling of the coupling as the number of active QWs increases.
+
+
+\clearpage
+\section{Comparison of polariton resonance definitions}
+
+For TE polarization of the same 23/26-pair DBR structure with one QW,
+we compare three energy definitions at equal real $k_\parallel$. The
+effective model gives the eigenvalues of
+\[
+H(k_\parallel)=
+\begin{pmatrix}E_C(k_\parallel)&g\\g&E_X(k_\parallel)\end{pmatrix},
+\qquad
+E_C(k_\parallel)=\operatorname{Re}\mathcal E_C^{bg}(k_\parallel).
+\]
+Second, the reflectivity minima $E_{LP,UP}^{R_{\min}}$ are locally
+refined from the unbinned real-energy TMM spectrum $R(E,k_\parallel)$.
+An unresolved minimum is marked invalid and omitted from statistics;
+no model prediction is substituted. Third, the two complex poles
+$\mathcal E_{LP,UP}^{pole}$ are separately tracked by solving
+\[
+M_{22}(\mathcal E,k_\parallel)=0.
+\]
+Their real parts serve as reference eigenmode energies; their imaginary
+parts determine the linewidth parameters.
+
+These are not three independent physical models. The reflectivity
+minima and poles are different resonance definitions obtained from the
+same full TMM structure, while the $2\times2$ matrix is an effective
+two-mode description. At equal real $k_\parallel$ the residuals are
+\[
+\delta E_\alpha^{2\times2}
+=E_\alpha^{2\times2}-\operatorname{Re}\mathcal E_\alpha^{pole},
+\qquad
+\delta E_\alpha^{R}
+=E_\alpha^{R_{\min}}-\operatorname{Re}\mathcal E_\alpha^{pole},
+\quad \alpha=LP,UP.
+\]
+\reportfigure{15_three_methods_comparison.png}{Comparison of three TE polariton resonance-energy definitions for the same finite DBR structure and calibration: effective $2\times2$ eigenvalues, reflectivity minima, and real parts of complex TMM poles. Residuals are evaluated at equal real $k_\parallel$ relative to pole energies; dashed lines denote the effective model and circles the reflectivity minima.}{fig:three-methods}
+
+
+Energy-residual statistics (in $\mu$eV) for points with resolved reflectivity minima:
+\begin{center}
+\small
+\begin{tabular}{llrrrrrr}
+\toprule
+Branch & Method & $N$ & $k$ range & RMS & Max $|\delta E|$ & $k=0$ & $k=k_{\max}$ \\
+\midrule
+LP & $2\times2$ & 241 & 0.0--4.0 & 1.93 & 2.99 & -0.03 & +0.67 \\
+LP & $R_{\min}$ & 241 & 0.0--4.0 & 6.85 & 9.86 & +4.84 & +2.64 \\
+UP & $2\times2$ & 241 & 0.0--4.0 & 2.72 & 3.62 & -0.03 & -2.85 \\
+UP & $R_{\min}$ & 241 & 0.0--4.0 & 2.01 & 4.84 & -4.84 & -0.01 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+All 241 points on each branch in
+$k_\parallel=0\ldots4\ \mu\mathrm m^{-1}$ have resolved minima. The
+$2\times2$ model has a lower RMS pole residual for LP, while the
+reflectivity minimum has a slightly lower RMS for UP. Agreement therefore
+depends quantitatively on the branch. The shift of a reflectivity minimum relative to the real part of the pole
+reflects the different resonance definitions.
+
+
+\clearpage
+\section{Conclusion}
+
+The analytical $2\times2$ model explains the anticrossing and the
+photon and exciton fractions of LP/UP. Full TMM includes finite DBRs,
+the QW position, TE/TM polarization and the open nature of the cavity.
+The original $k_\parallel$ plots are complemented by angular views and
+reflectivity maps calculated at fixed external angle.
+
+Comparing ideal and finite-DBR photon branches in the $2\times2$ model
+shows how the photon-dispersion approximation affects polariton energies.
+The final pole-referenced residuals have RMS values of about
+$1.93$ and $2.72\ \mu$eV for LP and UP in the $2\times2$ model, and
+$6.85$ and $2.01\ \mu$eV for reflectivity minima. These values apply
+to the chosen structure, calibration and $k_\parallel$ range; the
+different resonance definitions remain distinct.
+
+The changes in pole linewidths are consistent with the evolving
+photon and exciton fractions. For several QWs, the model reproduces
+the collective scaling $\Omega_R\propto\sqrt{N_{QW}}$.
+
+\end{document}

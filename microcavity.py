@@ -24,6 +24,7 @@ from itertools import combinations
 from typing import Any
 
 import numpy as np
+from scipy.interpolate import CubicSpline
 from scipy.optimize import brentq, minimize_scalar, root
 from scipy.signal import find_peaks
 
@@ -56,6 +57,40 @@ def to_mev(value: float | np.ndarray) -> float | np.ndarray:
     """Convert eV to meV."""
 
     return np.asarray(value) * EV_TO_MEV if np.ndim(value) else float(value) * EV_TO_MEV
+
+
+def external_momentum(
+    energy: float | np.ndarray,
+    angle_degrees: float | np.ndarray,
+    *,
+    n_external: float = 1.0,
+) -> np.ndarray:
+    """In-plane momentum of a real-energy plane wave at an external angle."""
+
+    if n_external <= 0.0:
+        raise ValueError("n_external must be positive")
+    return (
+        n_external * np.asarray(energy, dtype=np.float64)
+        * np.sin(np.deg2rad(angle_degrees)) / HBAR_C
+    )
+
+
+def external_angle_degrees(
+    k_parallel: float | np.ndarray,
+    energy: float | np.ndarray,
+    *,
+    n_external: float = 1.0,
+) -> np.ndarray:
+    """Real external angle for a branch point inside the external light cone."""
+
+    if n_external <= 0.0:
+        raise ValueError("n_external must be positive")
+    ratio = HBAR_C * np.asarray(k_parallel) / (
+        n_external * np.asarray(energy)
+    )
+    if np.any(np.abs(ratio) > 1.0 + 1.0e-12):
+        raise ValueError("branch point lies outside the external light cone")
+    return np.rad2deg(np.arcsin(np.clip(ratio, -1.0, 1.0)))
 
 
 # ---------------------------------------------------------------------------
@@ -715,7 +750,12 @@ def reflection_transmission(
     )
     m22 = matrix[..., 1, 1]
     reflection = -matrix[..., 1, 0] / m22
-    determinant = matrix[..., 0, 0] * m22 - matrix[..., 0, 1] * matrix[..., 1, 0]
+    # Interface determinants telescope to Y_left/Y_right. Propagation and
+    # reciprocal QW sheets have determinant one. Evaluating this identity
+    # avoids subtracting huge products in highly reflecting DBR stacks.
+    determinant = optical_admittance(n_left, energy, k_parallel, polarization) / (
+        optical_admittance(n_right, energy, k_parallel, polarization)
+    )
     transmission = determinant / m22
     return reflection, transmission
 
@@ -766,6 +806,139 @@ def transmittance(
     return np.real(y_right) / np.real(y_left) * np.abs(transmission) ** 2
 
 
+
+def tangential_polarization_weights(
+    energy: float | np.ndarray,
+    k_parallel: float | np.ndarray,
+    azimuth_degrees: float | np.ndarray,
+    *,
+    field_angle_degrees: float = 0.0,
+    n_external: float = 1.0,
+) -> tuple[np.ndarray, np.ndarray]:
+    """Incident TE/TM power fractions for a fixed tangential electric field.
+
+    The tangential E direction is fixed at field_angle_degrees in the
+    sample plane; the normal component follows from k dot E = 0. This
+    describes the field at the entrance interface, not polarization before
+    an unspecified focusing or steering system. External waves must propagate
+    in a real, positive-index medium. Arrays follow NumPy broadcasting.
+
+    Electric-field admittances are n*cos(theta) for TE and n/cos(theta)
+    for TM. The project's TM admittance instead belongs to its magnetic
+    amplitude basis, so it must not be used as an electric admittance.
+    Returns (p_TE, p_TM).
+    """
+
+    energy = np.asarray(energy, dtype=float)
+    if n_external <= 0 or np.any(~np.isfinite(energy)) or np.any(energy <= 0):
+        raise ValueError("positive real energy and external index are required")
+    ratio = HBAR_C * np.asarray(k_parallel, dtype=float) / (n_external * energy)
+    if np.any(~np.isfinite(ratio)) or np.any(np.abs(ratio) >= 1):
+        raise ValueError("incident waves must lie strictly inside the light cone")
+    delta = np.deg2rad(np.asarray(azimuth_degrees) - field_angle_degrees)
+    if np.any(~np.isfinite(delta)):
+        raise ValueError("azimuth must be finite")
+    electric_tm = np.cos(delta) ** 2
+    electric_te = np.sin(delta) ** 2
+    denominator = electric_tm + (1 - ratio**2) * electric_te
+    p_tm = electric_tm / denominator
+    p_te = (1 - ratio**2) * electric_te / denominator
+    return p_te, p_tm
+
+
+def fixed_tangential_polarization_rta(
+    energy: float | np.ndarray,
+    k_parallel: float | np.ndarray,
+    azimuth_degrees: float | np.ndarray,
+    layers: Sequence[Layer],
+    *,
+    field_angle_degrees: float = 0.0,
+    n_left: float,
+    n_right: float,
+) -> dict[str, np.ndarray]:
+    """R, T and A for fixed tangential linear E, with no output analyzer.
+
+    Both orthogonal output channels are collected. TE/TM matrices are
+    evaluated once per energy and radial momentum; azimuth changes only the
+    input power fractions. To reuse spectra across azimuths, pass energy
+    shaped (N, 1) and azimuth shaped (1, M). Returned powers are normalized
+    to the total incident normal Poynting flux.
+    """
+
+    p_te, p_tm = tangential_polarization_weights(
+        energy, k_parallel, azimuth_degrees,
+        field_angle_degrees=field_angle_degrees, n_external=n_left,
+    )
+    if n_right <= 0 or np.any(
+        np.abs(HBAR_C * np.asarray(k_parallel) / (n_right * np.asarray(energy))) >= 1
+    ):
+        raise ValueError("transmitted external waves must propagate")
+    result: dict[str, np.ndarray] = {"p_te": p_te, "p_tm": p_tm}
+    for polarization in ("TE", "TM"):
+        r, t = reflection_transmission(
+            energy, k_parallel, polarization, layers,
+            n_left=n_left, n_right=n_right,
+        )
+        y_left = optical_admittance(n_left, energy, k_parallel, polarization)
+        y_right = optical_admittance(n_right, energy, k_parallel, polarization)
+        tag = polarization.lower()
+        result[f"R_{tag}"] = np.abs(r) ** 2
+        result[f"T_{tag}"] = np.real(y_right) / np.real(y_left) * np.abs(t) ** 2
+    result["R"] = p_te * result["R_te"] + p_tm * result["R_tm"]
+    result["T"] = p_te * result["T_te"] + p_tm * result["T_tm"]
+    result["A"] = 1 - result["R"] - result["T"]
+    return result
+
+
+def sampled_spectral_maxima(
+    energies: np.ndarray,
+    values: np.ndarray,
+    *,
+    relative_prominence: float = 1.0e-5,
+) -> dict[str, np.ndarray]:
+    """Find all interior spectral maxima, refining on a local cubic spline.
+
+    Prominence is relative to the sampled intensity range. Both maxima are
+    retained when two resonances are resolved; endpoints are never accepted
+    as peaks. A five-point spline refines positions without quantizing them
+    to the energy grid. Accuracy must be checked by refining that grid.
+    """
+
+    energies = np.asarray(energies, dtype=float)
+    values = np.asarray(values, dtype=float)
+    if (
+        energies.ndim != 1 or values.shape != energies.shape or energies.size < 5
+        or np.any(~np.isfinite(energies)) or np.any(~np.isfinite(values))
+        or np.any(np.diff(energies) <= 0) or relative_prominence < 0
+    ):
+        raise ValueError("finite spectra on an increasing 1D energy grid are required")
+    indices, _ = find_peaks(
+        values, prominence=relative_prominence * np.ptp(values),
+    )
+    peak_energies, peak_heights = [], []
+    for index in indices:
+        lo, hi = max(0, index - 2), min(len(energies), index + 3)
+        offsets = 1.0e6 * (energies[lo:hi] - energies[index])
+        spline = CubicSpline(offsets, values[lo:hi])
+        candidates = spline.derivative().roots(extrapolate=False)
+        lower = 1.0e6 * (energies[index - 1] - energies[index])
+        upper = 1.0e6 * (energies[index + 1] - energies[index])
+        candidates = candidates[
+            (candidates >= lower) & (candidates <= upper)
+            & (spline.derivative(2)(candidates) < 0)
+        ]
+        offset = (
+            float(candidates[np.argmax(spline(candidates))])
+            if candidates.size else 0.0
+        )
+        peak_energies.append(energies[index] + offset * 1.0e-6)
+        peak_heights.append(float(spline(offset)))
+    return {
+        "energy": np.asarray(peak_energies),
+        "height": np.asarray(peak_heights),
+    }
+
+
 def reflectivity_map(
     energies: np.ndarray,
     momenta: np.ndarray,
@@ -793,6 +966,38 @@ def reflectivity_map(
             n_right=n_right,
         )
         for momentum in iterator
+    ]
+    return np.asarray(rows, dtype=np.float64)
+
+
+def angle_resolved_reflectivity_map(
+    energies: np.ndarray,
+    angles_degrees: np.ndarray,
+    polarization: Polarization,
+    layers: Sequence[Layer],
+    *,
+    n_left: float,
+    n_right: float,
+    progress: bool = False,
+) -> np.ndarray:
+    """Reflectivity at fixed real angles, recalculating k(E, angle) per energy."""
+
+    energies = np.asarray(energies, dtype=np.float64)
+    iterator: Iterable[float] = np.asarray(angles_degrees, dtype=float)
+    if progress:
+        from tqdm.auto import tqdm
+
+        iterator = tqdm(iterator, desc=f"{polarization.upper()} angular reflectivity")
+    rows = [
+        reflectivity(
+            energies,
+            external_momentum(energies, float(angle), n_external=n_left),
+            polarization,
+            layers,
+            n_left=n_left,
+            n_right=n_right,
+        )
+        for angle in iterator
     ]
     return np.asarray(rows, dtype=np.float64)
 
@@ -1253,7 +1458,8 @@ def trace_reflectivity_branches(
         raise ValueError("momenta and predictions must have matching shapes")
     lp = np.full(momenta.shape, np.nan)
     up = np.full(momenta.shape, np.nan)
-    resolved = np.zeros(momenta.shape, dtype=bool)
+    resolved_lp = np.zeros(momenta.shape, dtype=bool)
+    resolved_up = np.zeros(momenta.shape, dtype=bool)
 
     for index, momentum in enumerate(momenta):
         if index == 0:
@@ -1283,15 +1489,21 @@ def trace_reflectivity_branches(
         )
         lp_result = _bounded_reflectivity_dip(objective, lp_bracket, xatol=xatol)
         up_result = _bounded_reflectivity_dip(objective, up_bracket, xatol=xatol)
-        if (
-            lp_result["success"]
-            and up_result["success"]
-            and lp_result["energy"] < up_result["energy"]
+        if lp_result["success"] and (
+            not up_result["success"] or lp_result["energy"] < up_result["energy"]
         ):
             lp[index] = lp_result["energy"]
+            resolved_lp[index] = True
+        if up_result["success"] and (
+            not lp_result["success"] or lp_result["energy"] < up_result["energy"]
+        ):
             up[index] = up_result["energy"]
-            resolved[index] = True
-    return {"lp": lp, "up": up, "resolved": resolved}
+            resolved_up[index] = True
+    return {
+        "lp": lp, "up": up,
+        "resolved_lp": resolved_lp, "resolved_up": resolved_up,
+        "resolved": resolved_lp & resolved_up,
+    }
 
 
 def reflectivity_fwhm(
