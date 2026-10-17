@@ -1,0 +1,1808 @@
+{
+  "parameters": {
+    "gamma_x_hwhm_eV": 0.00025,
+    "gamma_x_fwhm_eV": 0.0005,
+    "gamma_c0_fwhm_eV": 4.11481709110865e-06,
+    "omega_target_eV": 0.0032659863237109047,
+    "g_original_eV": 0.0016329931618554523,
+    "g_eff_eV": 0.0016376921410420685,
+    "rabi_argument_eV": 0.003275384282084137,
+    "delta0_eV": 2.056547154793975e-09,
+    "detuning_tolerance_eV": 1e-08
+  },
+  "statistics": {
+    "energy_effective": {
+      "lp": {
+        "n_valid": 241,
+        "k_min_um_inverse": 0.0,
+        "k_max_um_inverse": 4.0,
+        "rms_ueV": 0.767025209643188,
+        "max_abs_ueV": 1.1871400817931033,
+        "at_zero_ueV": -0.02708144375418442,
+        "at_kmax_ueV": -0.11004517075363651
+      },
+      "up": {
+        "n_valid": 241,
+        "k_min_um_inverse": 0.0,
+        "k_max_um_inverse": 4.0,
+        "rms_ueV": 1.5781854359813212,
+        "max_abs_ueV": 2.0660460169352746,
+        "at_zero_ueV": -0.027081440423515346,
+        "at_kmax_ueV": -2.0660460169352746
+      }
+    },
+    "energy_reflectivity": {
+      "lp": {
+        "n_valid": 241,
+        "k_min_um_inverse": 0.0,
+        "k_max_um_inverse": 4.0,
+        "rms_ueV": 6.851025867563109,
+        "max_abs_ueV": 9.858922872751918,
+        "at_zero_ueV": 4.838349964675359,
+        "at_kmax_ueV": 2.6385339511048045
+      },
+      "up": {
+        "n_valid": 241,
+        "k_min_um_inverse": 0.0,
+        "k_max_um_inverse": 4.0,
+        "rms_ueV": 2.0076904898593244,
+        "max_abs_ueV": 4.838796582085081,
+        "at_zero_ueV": -4.838796582085081,
+        "at_kmax_ueV": -0.009264948808151985
+      }
+    },
+    "linewidth_effective": {
+      "lp": {
+        "n_valid": 241,
+        "k_min_um_inverse": 0.0,
+        "k_max_um_inverse": 4.0,
+        "rms_ueV": 0.12421160839587175,
+        "max_abs_ueV": 0.17438902443194654,
+        "at_zero_ueV": 0.028327374037065943,
+        "at_kmax_ueV": 0.10409410849487963
+      },
+      "up": {
+        "n_valid": 241,
+        "k_min_um_inverse": 0.0,
+        "k_max_um_inverse": 4.0,
+        "rms_ueV": 0.08091801456373432,
+        "max_abs_ueV": 0.12541515556696375,
+        "at_zero_ueV": 0.020137279761495586,
+        "at_kmax_ueV": -0.05274443608947313
+      }
+    },
+    "diagnostic_energy_hermitian": {
+      "lp": {
+        "n_valid": 241,
+        "k_min_um_inverse": 0.0,
+        "k_max_um_inverse": 4.0,
+        "rms_ueV": 1.9254194142729792,
+        "max_abs_ueV": 2.993984347110512,
+        "at_zero_ueV": -0.02708144331009521,
+        "at_kmax_ueV": 0.6717421834334658
+      },
+      "up": {
+        "n_valid": 241,
+        "k_min_um_inverse": 0.0,
+        "k_max_um_inverse": 4.0,
+        "rms_ueV": 2.7192532874242015,
+        "max_abs_ueV": 3.616575009468548,
+        "at_zero_ueV": -0.027081439535336926,
+        "at_kmax_ueV": -2.8478333713444215
+      }
+    },
+    "diagnostic_energy_original_g_with_losses": {
+      "lp": {
+        "n_valid": 241,
+        "k_min_um_inverse": 0.0,
+        "k_max_um_inverse": 4.0,
+        "rms_ueV": 3.741656229832283,
+        "max_abs_ueV": 5.014354731880388,
+        "at_zero_ueV": 4.685458251607599,
+        "at_kmax_ueV": 0.6954922873170233
+      },
+      "up": {
+        "n_valid": 241,
+        "k_min_um_inverse": 0.0,
+        "k_max_um_inverse": 4.0,
+        "rms_ueV": 4.295949927438766,
+        "max_abs_ueV": 5.214717447854511,
+        "at_zero_ueV": -4.73962113534121,
+        "at_kmax_ueV": -2.8715834750059344
+      }
+    },
+    "diagnostic_linewidth_original_g": {
+      "lp": {
+        "n_valid": 241,
+        "k_min_um_inverse": 0.0,
+        "k_max_um_inverse": 4.0,
+        "rms_ueV": 0.26095442872549357,
+        "max_abs_ueV": 0.4219189940590892,
+        "at_zero_ueV": 0.028327825908245306,
+        "at_kmax_ueV": 0.12478304148213354
+      },
+      "up": {
+        "n_valid": 241,
+        "k_min_um_inverse": 0.0,
+        "k_max_um_inverse": 4.0,
+        "rms_ueV": 0.21817784032079904,
+        "max_abs_ueV": 0.37314990499712514,
+        "at_zero_ueV": 0.02013682792848014,
+        "at_kmax_ueV": -0.07343336906599343
+      }
+    }
+  },
+  "checks": {
+    "analytic_pair_error_eV": 1.3323255922124794e-15,
+    "trace_error_eV": 1.3325112395407847e-15,
+    "uncoupled_error_eV": 0.0,
+    "lossless_error_eV": 8.881784197001252e-16,
+    "zero_k_splitting_error_ueV": 9.62771529167128e-11,
+    "passive": true,
+    "adaptive_intermediate_points": 0,
+    "old_hermitian_reproduction_error_ueV": 4.440892098500626e-10,
+    "photon_root_max_residual": 9.099754671009458e-11,
+    "tmm_zero_k_gap_error_ueV": 3.234391920958757e-09,
+    "tmm_root_refinement": [
+      {
+        "index": 0,
+        "k_um_inverse": 0.0,
+        "branch": "photon",
+        "accepted": true,
+        "solver_success": true,
+        "real_shift_ueV": 0.0,
+        "linewidth_shift_ueV": -0.0,
+        "backward_error_eV": 5.843411978086002e-17,
+        "normalized_m22_residual": 1.1078072750889023e-11
+      },
+      {
+        "index": 0,
+        "k_um_inverse": 0.0,
+        "branch": "lp",
+        "accepted": true,
+        "solver_success": true,
+        "real_shift_ueV": 0.0,
+        "linewidth_shift_ueV": -0.0,
+        "backward_error_eV": 1.1183256391139127e-16,
+        "normalized_m22_residual": 4.219887823289819e-11
+      },
+      {
+        "index": 0,
+        "k_um_inverse": 0.0,
+        "branch": "up",
+        "accepted": true,
+        "solver_success": true,
+        "real_shift_ueV": 0.0,
+        "linewidth_shift_ueV": -0.0,
+        "backward_error_eV": 2.2072057400921905e-17,
+        "normalized_m22_residual": 8.329090232790737e-12
+      },
+      {
+        "index": 118,
+        "k_um_inverse": 1.9666666666666666,
+        "branch": "photon",
+        "accepted": true,
+        "solver_success": true,
+        "real_shift_ueV": 0.0,
+        "linewidth_shift_ueV": -0.0,
+        "backward_error_eV": 5.473122771920127e-17,
+        "normalized_m22_residual": 1.1431975421515658e-11
+      },
+      {
+        "index": 118,
+        "k_um_inverse": 1.9666666666666666,
+        "branch": "lp",
+        "accepted": true,
+        "solver_success": true,
+        "real_shift_ueV": 0.0,
+        "linewidth_shift_ueV": -0.0,
+        "backward_error_eV": 2.4847747706070965e-17,
+        "normalized_m22_residual": 5.4539544854381524e-11
+      },
+      {
+        "index": 118,
+        "k_um_inverse": 1.9666666666666666,
+        "branch": "up",
+        "accepted": true,
+        "solver_success": true,
+        "real_shift_ueV": 0.0,
+        "linewidth_shift_ueV": -0.0,
+        "backward_error_eV": 1.8292964527679273e-17,
+        "normalized_m22_residual": 4.214229075630446e-12
+      },
+      {
+        "index": 120,
+        "k_um_inverse": 2.0,
+        "branch": "photon",
+        "accepted": true,
+        "solver_success": true,
+        "real_shift_ueV": 0.0,
+        "linewidth_shift_ueV": -0.0,
+        "backward_error_eV": 1.1773602294850587e-16,
+        "normalized_m22_residual": 2.4674681416590275e-11
+      },
+      {
+        "index": 120,
+        "k_um_inverse": 2.0,
+        "branch": "lp",
+        "accepted": true,
+        "solver_success": true,
+        "real_shift_ueV": 0.0,
+        "linewidth_shift_ueV": -0.0,
+        "backward_error_eV": 8.229781922021447e-17,
+        "normalized_m22_residual": 1.9033159557839831e-10
+      },
+      {
+        "index": 120,
+        "k_um_inverse": 2.0,
+        "branch": "up",
+        "accepted": true,
+        "solver_success": true,
+        "real_shift_ueV": 0.0,
+        "linewidth_shift_ueV": -0.0,
+        "backward_error_eV": 2.3589816259405805e-17,
+        "normalized_m22_residual": 5.4257770947014205e-12
+      },
+      {
+        "index": 240,
+        "k_um_inverse": 4.0,
+        "branch": "photon",
+        "accepted": true,
+        "solver_success": true,
+        "real_shift_ueV": 0.0,
+        "linewidth_shift_ueV": -0.0,
+        "backward_error_eV": 9.745931744420023e-17,
+        "normalized_m22_residual": 2.8067856688923557e-11
+      },
+      {
+        "index": 240,
+        "k_um_inverse": 4.0,
+        "branch": "lp",
+        "accepted": true,
+        "solver_success": true,
+        "real_shift_ueV": 0.0,
+        "linewidth_shift_ueV": -0.0,
+        "backward_error_eV": 7.395811531238967e-17,
+        "normalized_m22_residual": 2.335056401720662e-09
+      },
+      {
+        "index": 240,
+        "k_um_inverse": 4.0,
+        "branch": "up",
+        "accepted": true,
+        "solver_success": true,
+        "real_shift_ueV": 0.0,
+        "linewidth_shift_ueV": -0.0,
+        "backward_error_eV": 1.1032903155528686e-16,
+        "normalized_m22_residual": 3.201882810206434e-11
+      }
+    ],
+    "max_tmm_energy_shift_ueV": 0.0,
+    "max_tmm_linewidth_shift_ueV": 0.0,
+    "outgoing_wavevector_branch": {
+      "passed": true,
+      "max_relative_step": 0.0017456420542671957,
+      "minimum_real_q_um_inverse": 6.163256942919914,
+      "refractive_indices": [
+        1.0,
+        2.95,
+        3.6,
+        3.65
+      ]
+    },
+    "test_suite": {
+      "command": "python -m unittest -q test_polarization",
+      "tests": 11,
+      "passed": true
+    }
+  },
+  "provenance": {
+    "config": {
+      "n_air": 1.0,
+      "n_h": 3.6,
+      "n_l": 2.95,
+      "n_cavity": 3.6,
+      "n_qw": 3.65,
+      "energy_zero": 1.45,
+      "n_top": 23,
+      "n_bottom": 26,
+      "qw_thickness": 0.006,
+      "exciton_mass_ratio": 0.5,
+      "gamma_x": 0.00025,
+      "single_qw_rabi_target": 0.0032659863237109047,
+      "energy_min": 1.35,
+      "energy_max": 1.55,
+      "energy_points": 4001,
+      "momentum_min": 0.0,
+      "momentum_max": 4.0,
+      "momentum_points": 241,
+      "bare_map_points": 120000,
+      "polariton_map_points": 60000,
+      "map_display_rows": 1200,
+      "angle_max_degrees": 30.0,
+      "angle_points": 241,
+      "field_dz": 0.0005,
+      "dbr_cases": [
+        [
+          8,
+          8
+        ],
+        [
+          12,
+          12
+        ],
+        [
+          16,
+          16
+        ],
+        [
+          23,
+          26
+        ]
+      ],
+      "detunings_mev": [
+        -8.0,
+        -5.8,
+        0.0,
+        1.0
+      ],
+      "position_points": 65,
+      "tuning_options": {
+        "resonance_half_window": 0.03,
+        "resonance_coarse_points": 401
+      },
+      "lambda_zero": 0.8550634374482758,
+      "d_h": 0.059379405378352484,
+      "d_l": 0.07246300317358269,
+      "cavity_length_initial": 0.4750352430268199
+    },
+    "cavity_length_um": 0.47486778906052696,
+    "qw_position_um": 0.2374162720496828,
+    "gamma_0_eV": 2.447444335815815e-05,
+    "background_layers": [
+      {
+        "kind": "layer",
+        "name": "top_dbr_01_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "top_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "top_dbr_01_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "top_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "top_dbr_02_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "top_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "top_dbr_02_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "top_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "top_dbr_03_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "top_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "top_dbr_03_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "top_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "top_dbr_04_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "top_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "top_dbr_04_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "top_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "top_dbr_05_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "top_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "top_dbr_05_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "top_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "top_dbr_06_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "top_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "top_dbr_06_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "top_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "top_dbr_07_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "top_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "top_dbr_07_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "top_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "top_dbr_08_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "top_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "top_dbr_08_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "top_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "top_dbr_09_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "top_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "top_dbr_09_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "top_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "top_dbr_10_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "top_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "top_dbr_10_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "top_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "top_dbr_11_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "top_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "top_dbr_11_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "top_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "top_dbr_12_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "top_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "top_dbr_12_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "top_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "top_dbr_13_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "top_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "top_dbr_13_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "top_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "top_dbr_14_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "top_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "top_dbr_14_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "top_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "top_dbr_15_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "top_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "top_dbr_15_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "top_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "top_dbr_16_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "top_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "top_dbr_16_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "top_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "top_dbr_17_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "top_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "top_dbr_17_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "top_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "top_dbr_18_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "top_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "top_dbr_18_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "top_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "top_dbr_19_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "top_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "top_dbr_19_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "top_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "top_dbr_20_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "top_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "top_dbr_20_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "top_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "top_dbr_21_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "top_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "top_dbr_21_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "top_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "top_dbr_22_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "top_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "top_dbr_22_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "top_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "top_dbr_23_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "top_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "top_dbr_23_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "top_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "C_1",
+        "n": 3.6,
+        "d": 0.2344162720496828,
+        "region": "cavity"
+      },
+      {
+        "kind": "qw",
+        "name": "QW",
+        "n": 3.65,
+        "d": 0.006,
+        "region": "cavity",
+        "exciton_energy": 1.45,
+        "exciton_mass_ratio": 0.5,
+        "gamma_x": 0.00025,
+        "gamma_0": 2.447444335815815e-05,
+        "enabled": false
+      },
+      {
+        "kind": "layer",
+        "name": "C_2",
+        "n": 3.6,
+        "d": 0.23445151701084416,
+        "region": "cavity"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_01_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_01_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_02_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_02_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_03_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_03_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_04_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_04_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_05_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_05_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_06_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_06_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_07_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_07_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_08_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_08_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_09_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_09_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_10_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_10_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_11_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_11_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_12_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_12_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_13_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_13_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_14_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_14_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_15_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_15_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_16_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_16_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_17_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_17_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_18_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_18_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_19_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_19_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_20_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_20_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_21_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_21_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_22_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_22_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_23_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_23_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_24_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_24_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_25_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_25_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_26_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_26_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "bottom_dbr"
+      }
+    ],
+    "active_layers": [
+      {
+        "kind": "layer",
+        "name": "top_dbr_01_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "top_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "top_dbr_01_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "top_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "top_dbr_02_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "top_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "top_dbr_02_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "top_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "top_dbr_03_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "top_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "top_dbr_03_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "top_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "top_dbr_04_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "top_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "top_dbr_04_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "top_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "top_dbr_05_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "top_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "top_dbr_05_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "top_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "top_dbr_06_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "top_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "top_dbr_06_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "top_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "top_dbr_07_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "top_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "top_dbr_07_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "top_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "top_dbr_08_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "top_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "top_dbr_08_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "top_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "top_dbr_09_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "top_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "top_dbr_09_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "top_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "top_dbr_10_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "top_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "top_dbr_10_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "top_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "top_dbr_11_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "top_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "top_dbr_11_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "top_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "top_dbr_12_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "top_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "top_dbr_12_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "top_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "top_dbr_13_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "top_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "top_dbr_13_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "top_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "top_dbr_14_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "top_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "top_dbr_14_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "top_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "top_dbr_15_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "top_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "top_dbr_15_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "top_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "top_dbr_16_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "top_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "top_dbr_16_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "top_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "top_dbr_17_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "top_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "top_dbr_17_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "top_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "top_dbr_18_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "top_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "top_dbr_18_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "top_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "top_dbr_19_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "top_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "top_dbr_19_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "top_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "top_dbr_20_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "top_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "top_dbr_20_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "top_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "top_dbr_21_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "top_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "top_dbr_21_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "top_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "top_dbr_22_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "top_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "top_dbr_22_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "top_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "top_dbr_23_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "top_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "top_dbr_23_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "top_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "C_1",
+        "n": 3.6,
+        "d": 0.2344162720496828,
+        "region": "cavity"
+      },
+      {
+        "kind": "qw",
+        "name": "QW",
+        "n": 3.65,
+        "d": 0.006,
+        "region": "cavity",
+        "exciton_energy": 1.45,
+        "exciton_mass_ratio": 0.5,
+        "gamma_x": 0.00025,
+        "gamma_0": 2.447444335815815e-05,
+        "enabled": true
+      },
+      {
+        "kind": "layer",
+        "name": "C_2",
+        "n": 3.6,
+        "d": 0.23445151701084416,
+        "region": "cavity"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_01_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_01_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_02_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_02_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_03_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_03_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_04_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_04_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_05_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_05_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_06_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_06_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_07_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_07_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_08_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_08_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_09_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_09_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_10_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_10_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_11_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_11_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_12_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_12_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_13_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_13_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_14_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_14_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_15_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_15_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_16_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_16_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_17_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_17_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_18_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_18_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_19_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_19_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_20_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_20_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_21_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_21_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_22_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_22_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_23_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_23_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_24_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_24_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_25_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_25_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_26_L",
+        "n": 2.95,
+        "d": 0.07246300317358269,
+        "region": "bottom_dbr"
+      },
+      {
+        "kind": "layer",
+        "name": "bottom_dbr_26_H",
+        "n": 3.6,
+        "d": 0.059379405378352484,
+        "region": "bottom_dbr"
+      }
+    ],
+    "geometry_source": "Exact full-precision saved notebook summary; no retuning or Gamma_0 refit",
+    "tmm_source": "Saved fig15 real energies + fig13 TE pole FWHM; original values unchanged",
+    "sources_sha256": {
+      "data/fig15_three_methods_comparison.csv": "7cbad784ed006347ab910cf004570a848db43de16cb1a7a64431115b0f15b831",
+      "data/fig13_pole_linewidths.csv": "d28070437820db995198085438d085c32112374a5226cf7e1e34571e748b7063"
+    }
+  },
+  "elapsed_seconds": 1.1646294060010405,
+  "units": {
+    "energy": "eV",
+    "linewidth": "eV FWHM = -2 Im(pole)",
+    "length": "um",
+    "k": "um^-1",
+    "residual_statistics": "micro-eV"
+  },
+  "figures": [
+    "15_complex_energy_comparison.png"
+  ]
+}

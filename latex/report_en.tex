@@ -1109,65 +1109,132 @@ It is important that the value for one QW was chosen earlier from the experiment
 
 
 \clearpage
-\section{Comparison of polariton resonance definitions}
+\section{Complex eigenvalues of the effective two-mode model}\label{sec:complex-effective}
 
-For TE polarization of the same 23/26-pair DBR structure with one QW,
-we compare three energy definitions at equal real $k_\parallel$. The
-effective model gives the eigenvalues of
+The earlier two-mode model described a coupled photon and exciton without decay. We now add losses so that the model gives both polariton energies and linewidths.
+
+First, we find the photon mode of the same structure without the exciton resonance. The InGaAs thickness and background refractive index are retained, while the resonant exciton matrix is replaced by the identity. For each real $k_\parallel$, we solve
 \[
-H(k_\parallel)=
-\begin{pmatrix}E_C(k_\parallel)&g\\g&E_X(k_\parallel)\end{pmatrix},
+M_{22}^{\mathrm{bg}}(\mathcal E,k_\parallel)=0,
 \qquad
-E_C(k_\parallel)=\operatorname{Re}\mathcal E_C^{bg}(k_\parallel).
+\mathcal E_C^{\mathrm{bg}}(k_\parallel)
+=E_C(k_\parallel)-i\frac{\Gamma_C(k_\parallel)}{2}.
 \]
-Second, the reflectivity minima $E_{LP,UP}^{R_{\min}}$ are locally
-refined from the unbinned real-energy TMM spectrum $R(E,k_\parallel)$.
-An unresolved minimum is marked invalid and omitted from statistics;
-no model prediction is substituted. Third, the two complex poles
-$\mathcal E_{LP,UP}^{pole}$ are separately tracked by solving
-\[
-M_{22}(\mathcal E,k_\parallel)=0.
-\]
-Their real parts serve as reference eigenmode energies; their imaginary
-parts determine the linewidth parameters.
+The real part of the pole gives the photon energy $E_C$. Its imaginary part gives the linewidth $\Gamma_C=-2\operatorname{Im}\mathcal E_C^{\mathrm{bg}}$, which accounts for light leaking through the DBRs.
 
-These are not three independent physical models. The reflectivity
-minima and poles are different resonance definitions obtained from the
-same full TMM structure, while the $2\times2$ matrix is an effective
-two-mode description. At equal real $k_\parallel$ the residuals are
+For the exciton, we use
 \[
-\delta E_\alpha^{2\times2}
-=E_\alpha^{2\times2}-\operatorname{Re}\mathcal E_\alpha^{pole},
+\mathcal E_X(k_\parallel)=E_X(k_\parallel)-i\gamma_X,
 \qquad
-\delta E_\alpha^{R}
-=E_\alpha^{R_{\min}}-\operatorname{Re}\mathcal E_\alpha^{pole},
-\quad \alpha=LP,UP.
+E_X(k_\parallel)=E_X(0)+\frac{\hbar^2k_\parallel^2}{2M_X}.
 \]
-\reportfigure{15_three_methods_comparison.png}{Comparison of three TE polariton resonance-energy definitions for the same finite DBR structure and calibration: effective $2\times2$ eigenvalues, reflectivity minima, and real parts of complex TMM poles. Residuals are evaluated at equal real $k_\parallel$ relative to pole energies; dashed lines denote the effective model and circles the reflectivity minima.}{fig:three-methods}
+Here $\gamma_X$ is the prescribed homogeneous half-width (HWHM) from Section 6; the full linewidth is $\Gamma_X=2\gamma_X$. The parameter $\Gamma_0$ is not added to this width: in TMM, it sets the exciton coupling to light.
 
+The full matrix of the effective model is
+\[
+H_{\mathrm{eff}}(k_\parallel)=
+\begin{pmatrix}
+E_C(k_\parallel)-i\Gamma_C(k_\parallel)/2 & g_{\mathrm{eff}}\\
+g_{\mathrm{eff}} & E_X(k_\parallel)-i\gamma_X
+\end{pmatrix}.
+\]
+It acts on photon and exciton amplitudes. The TMM transfer matrix has a different role: it relates forward- and backward-propagating wave amplitudes across the structure.
 
-Energy-residual statistics (in $\mu$eV) for points with resolved reflectivity minima:
-\begin{center}
-\small
-\begin{tabular}{llrrrrrr}
-\toprule
-Branch & Method & $N$ & $k$ range & RMS & Max $|\delta E|$ & $k=0$ & $k=k_{\max}$ \\
-\midrule
-LP & $2\times2$ & 241 & 0.0--4.0 & 1.93 & 2.99 & -0.03 & +0.67 \\
-LP & $R_{\min}$ & 241 & 0.0--4.0 & 6.85 & 9.86 & +4.84 & +2.64 \\
-UP & $2\times2$ & 241 & 0.0--4.0 & 2.72 & 3.62 & -0.03 & -2.85 \\
-UP & $R_{\min}$ & 241 & 0.0--4.0 & 2.01 & 4.84 & -4.84 & -0.01 \\
-\bottomrule
-\end{tabular}
-\end{center}
+The eigenvalues of this matrix are
+\[
+\mathcal E_{\mathrm{LP,UP}}^{2\times2}
+=\frac{\mathcal E_C^{\mathrm{bg}}+\mathcal E_X}{2}
+\mp\sqrt{g_{\mathrm{eff}}^2+
+\left(\frac{\mathcal E_C^{\mathrm{bg}}-\mathcal E_X}{2}\right)^2}.
+\]
+Their real parts give the polariton energies, and their imaginary parts give the pole linewidths:
+\[
+\Gamma_\alpha^{2\times2}
+=-2\operatorname{Im}\mathcal E_\alpha^{2\times2},
+\qquad \alpha=\mathrm{LP,UP}.
+\]
+For an isolated Lorentzian resonance, this linewidth equals the FWHM. A reflectivity dip may have a different width because of interference with the background.
 
-All 241 points on each branch in
-$k_\parallel=0\ldots4\ \mu\mathrm m^{-1}$ have resolved minima. The
-$2\times2$ model has a lower RMS pole residual for LP, while the
-reflectivity minimum has a slightly lower RMS for UP. Agreement therefore
-depends quantitatively on the branch. The shift of a reflectivity minimum relative to the real part of the pole
-reflects the different resonance definitions.
+\par\noindent\begin{minipage}{\textwidth}
+We choose $g_{\mathrm{eff}}$ to obtain the same energy splitting at zero detuning and $k_\parallel=0$ as in the calibrated TMM structure:
+\[
+\Omega_{\mathrm{target}}=\frac{8}{\sqrt{6}}\ \mathrm{meV}.
+\]
+\end{minipage}\par
+With losses included, this condition gives
+\[
+g_{\mathrm{eff}}=
+\sqrt{
+\left(\frac{\Omega_{\mathrm{target}}}{2}\right)^2+
+\left(\frac{\Gamma_C(0)-\Gamma_X}{4}\right)^2
+}.
+\]
+The small residual detuning, $E_C(0)-E_X(0)\simeq0.0021\ \mu\mathrm{eV}$, is within the calibration tolerance of $0.01\ \mu\mathrm{eV}$. It is retained when calculating the eigenvalues.
 
+For $\gamma_X=0.25\ \mathrm{meV}$, $\Gamma_X=0.50\ \mathrm{meV}$ and $\Gamma_C(0)\simeq0.004115\ \mathrm{meV}$, we obtain $g_{\mathrm{eff}}\simeq1.637692\ \mathrm{meV}$, compared with the earlier $g\simeq1.632993\ \mathrm{meV}$. The new coupling is kept constant over the whole $k_\parallel$ range.
+
+This update therefore adds losses and recalibrates the coupling. The next section checks how closely this model reproduces full TMM. Its limitations are one photon mode, one exciton and a constant coupling.
+
+\clearpage
+\section{Comparison of polariton resonance definitions}\label{sec:complex-comparison}
+
+We compare three ways to find the LP and UP energies for the same structure with 23 and 26 DBR pairs and one QW. All calculations use TE polarization and the same 241 values of $k_\parallel=0\ldots4\ \mu\mathrm m^{-1}$. The geometry and the parameter $\Gamma_0=0.024474443\ \mathrm{meV}$ are unchanged.
+
+\begin{enumerate}
+\item \textbf{Non-Hermitian $2\times2$ model.} We take the real parts of the eigenvalues from Section~\ref{sec:complex-effective}: $E_{1,\alpha}=\operatorname{Re}\mathcal E_\alpha^{2\times2}$.
+\item \textbf{TMM reflectance minima.} At real energies, we find a minimum of $R(E,k_\parallel)$ near each branch. Its position, $E_{2,\alpha}=E_\alpha^{R_{\min}}$, is refined using the original spectrum, without the energy binning used to display reflectivity maps.
+\item \textbf{Complex TMM poles.} With the exciton resonance included, we solve $M_{22}(\mathcal E,k_\parallel)=0$ at complex energy and take $E_{3,\alpha}=\operatorname{Re}\mathcal E_\alpha^{TMM}$.
+\end{enumerate}
+Here $\alpha=LP,UP$. Methods 2 and 3 use the same full TMM structure, but define the resonance position differently. Method 1 approximates this structure by two coupled modes.
+
+The upper panel of Figure~\ref{fig:three-methods} shows the energies. The lower panel shows their differences relative to method 3:
+\[
+\delta E_{j,\alpha}=E_{j,\alpha}-E_{3,\alpha},
+\qquad j=1,2,\quad \alpha=LP,UP.
+\]
+Each comparison uses the same branch at the same $k_\parallel$. A positive difference means an energy above the TMM pole; a negative difference means an energy below it. These small differences are almost invisible on the scale of the upper panel.
+
+\reportfigure{15_complex_energy_comparison.png}{TE polariton energies. (a) Methods: 1 --- Non-Hermitian $2\times2$ eigenvalues: Re $E$; 2 --- TMM reflectance minima; 3 --- TMM solutions of $M_{22}=0$: Re $E$. Method 1 is dashed, method 2 uses open circles, and method 3 is solid. (b) Differences $E_1-E_3$ (dashed) and $E_2-E_3$ (dotted with circles), evaluated on the same LP or UP branch at the same $k_\parallel$. Blue: LP; orange: UP. Every twelfth point is marked; all 241 points per branch enter the statistics.}{fig:three-methods}
+
+For a compact comparison, we use RMS (root mean square), defined for the energy differences as
+\[
+\mathrm{RMS}_{j,\alpha}=
+\sqrt{\frac{1}{N}\sum_{i=1}^{N}
+\left[E_{j,\alpha}(k_i)-E_{3,\alpha}(k_i)\right]^2},
+\qquad N=241.
+\]
+It measures the typical difference from method 3 over the whole $k_\parallel$ range, in the same units as energy. A smaller RMS means closer agreement between the two methods. The maximum absolute difference gives the largest discrepancy at an individual point.
+
+\par\noindent\begin{minipage}{\textwidth}
+Energy differences relative to method 3 (in $\mu\mathrm{eV}$):
+\begin{center}\small\begin{tabular}{llrr}\toprule
+Branch & Method & RMS & $\max|\delta E|$ \\\midrule
+LP & 1: $2\times2$ model & 0.767 & 1.187 \\
+LP & 2: reflectance minimum & 6.851 & 9.859 \\
+UP & 1: $2\times2$ model & 1.578 & 2.066 \\
+UP & 2: reflectance minimum & 2.008 & 4.839 \\
+\bottomrule\end{tabular}\end{center}
+\end{minipage}\par
+
+RMS is smaller for the calibrated $2\times2$ model than for reflectivity minima on both branches. All 241 minima per branch are resolved, so both comparisons use the same points. An unresolved minimum would exclude that point from both comparisons.
+
+At $k=0$, both model energies lie about $0.027\ \mu\mathrm{eV}$ below the TMM poles. Matching the splitting during calibration does not require the mean of the two energies to match.
+
+\par\noindent\begin{minipage}{\textwidth}
+Linewidths come from the imaginary parts of the poles and are compared only for methods 1 and 3:
+\[
+\Gamma_\alpha^{2\times2}=-2\operatorname{Im}\mathcal E_\alpha^{2\times2},
+\qquad \Gamma_\alpha^{TMM}=-2\operatorname{Im}\mathcal E_\alpha^{TMM},
+\qquad \delta\Gamma_\alpha=\Gamma_\alpha^{2\times2}-\Gamma_\alpha^{TMM}.
+\]
+The position of a reflectivity minimum does not give the imaginary part of a pole. The width of the dip itself is not considered here.
+\end{minipage}\par
+
+For the pole linewidths, the RMS differences, calculated in the same way from $\delta\Gamma_\alpha$, are $0.124$ and $0.081\ \mu\mathrm{eV}$ for LP and UP. The maximum absolute differences are $0.174$ and $0.125\ \mu\mathrm{eV}$, respectively.
+
+To understand the improvement, we also check two variants. The earlier Hermitian model gives energy RMS differences of $1.925$ and $2.719\ \mu\mathrm{eV}$ for LP and UP. Adding losses while keeping the original $g$ gives $3.742$ and $4.296\ \mu\mathrm{eV}$. The better agreement of the main variant therefore comes from including losses together with recalibrating the coupling. Adding losses alone is insufficient.
+
+We also check the analytical eigenvalue formula, the equality of the eigenvalue sum and the matrix trace, and the zero-coupling and lossless limits. All modes decay. Refining 12 photon and polariton poles with stricter solver tolerances leaves the saved roots unchanged within machine precision. The data and detailed check results are saved in \texttt{data/complex\_comparison.npz} and the accompanying JSON/CSV files.
 
 \clearpage
 \section{Conclusion}
@@ -1178,13 +1245,17 @@ the QW position, TE/TM polarization and the open nature of the cavity.
 The original $k_\parallel$ plots are complemented by angular views and
 reflectivity maps calculated at fixed external angle.
 
-Comparing ideal and finite-DBR photon branches in the $2\times2$ model
+Comparing ideal and finite-DBR photon branches in the Hermitian model
 shows how the photon-dispersion approximation affects polariton energies.
-The final pole-referenced residuals have RMS values of about
-$1.93$ and $2.72\ \mu$eV for LP and UP in the $2\times2$ model, and
-$6.85$ and $2.01\ \mu$eV for reflectivity minima. These values apply
-to the chosen structure, calibration and $k_\parallel$ range; the
-different resonance definitions remain distinct.
+For the calibrated non-Hermitian model, the final energy RMS residuals
+relative to full TMM poles are $0.767$ and $1.578\ \mu\mathrm{eV}$ for LP
+and UP; the corresponding linewidth RMS values are $0.124$ and
+$0.081\ \mu\mathrm{eV}$. Reflectivity-minimum energy RMS values remain
+$6.851$ and $2.008\ \mu\mathrm{eV}$. These results apply to the chosen
+structure, calibration and wave-vector range. The update combines
+diagonal damping with a recalibrated coupling; damping at fixed original
+coupling alone does not improve the energy agreement. Matching the
+zero-$k$ gap is a calibration condition, not an independent prediction.
 
 The changes in pole linewidths are consistent with the evolving
 photon and exciton fractions. For several QWs, the model reproduces

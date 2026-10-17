@@ -1,4 +1,4 @@
-"""Physical checks for the fixed-tangential-polarization spectrum."""
+"""Physical checks for polarized transmission and complex two-mode comparison."""
 import unittest
 
 import numpy as np
@@ -102,6 +102,51 @@ class PolarizationPhysicsTests(unittest.TestCase):
         peaks = mc.sampled_spectral_maxima(energy, values)
         self.assertEqual(len(peaks["energy"]), 1)
         self.assertGreater(abs(peaks["energy"][0] - (0.9 * first + 0.1 * second)), 1e-6)
+
+
+class ComplexComparisonTests(unittest.TestCase):
+    def inputs(self):
+        k = np.linspace(0., 4., 31)
+        photon = 1.45 + .001*k*k - 2e-6j
+        exciton = mc.exciton_energy(k, 1.45, .5)
+        omega = mc.mev(8/np.sqrt(6)); gamma_x = mc.mev(.25)
+        g = np.sqrt((omega/2)**2+((-2*photon[0].imag-2*gamma_x)/4)**2)
+        poles = np.array([mc.complex_coupled_oscillator_eigenvalues(
+            c.real, x, 2*g, -2*c.imag, 2*gamma_x)
+            for c,x in zip(photon,exciton)])
+        return k, photon, exciton, gamma_x, omega, poles
+
+    def test_known_complex_modes_and_common_validity_mask(self):
+        k,c,x,gamma,omega,poles = self.inputs()
+        dips = poles.real.copy(); dips[5,0] = np.nan
+        resolved = np.ones(poles.shape, dtype=bool)
+        resolved[7,1] = False
+        result = mc.compare_complex_modes(k,c,x,gamma,omega,poles,dips,resolved)
+        np.testing.assert_allclose(result['effective_poles_eV'],poles,atol=1e-14,rtol=0)
+        self.assertAlmostEqual(result['parameters']['rabi_argument_eV'],
+                               2*result['parameters']['g_eff_eV'],places=15)
+        self.assertLess(result['checks']['zero_k_splitting_error_ueV'],1e-6)
+        self.assertEqual(result['statistics']['energy_effective']['lp']['n_valid'],30)
+        self.assertEqual(result['statistics']['energy_reflectivity']['lp']['n_valid'],30)
+        self.assertEqual(result['statistics']['energy_effective']['up']['n_valid'],30)
+        self.assertEqual(result['statistics']['linewidth_effective']['lp']['n_valid'],31)
+
+    def test_detuning_and_nonpassive_photons_rejected(self):
+        k,c,x,gamma,omega,poles = self.inputs()
+        resolved = np.ones(poles.shape,dtype=bool)
+        with self.assertRaises(ValueError):
+            mc.compare_complex_modes(k,c+1e-6,x,gamma,omega,poles,poles.real,resolved)
+        with self.assertRaises(ValueError):
+            mc.compare_complex_modes(k,c.conjugate(),x,gamma,omega,poles,poles.real,resolved)
+        with self.assertRaises(ValueError):
+            mc.compare_complex_modes(k,c[:-1],x,gamma,omega,poles,poles.real,resolved)
+
+    def test_uncoupled_degenerate_real_energies(self):
+        k,c,x,gamma,omega,poles = self.inputs()
+        # Equal real energies with unequal losses must preserve both roots.
+        uncoupled = mc.complex_coupled_oscillator_eigenvalues(1.45,1.45,0.,4e-6,2*gamma)
+        np.testing.assert_allclose(np.sort_complex(uncoupled),
+                                   np.sort_complex([1.45-2e-6j,1.45-1j*gamma]),atol=1e-15)
 
 
 if __name__ == "__main__":

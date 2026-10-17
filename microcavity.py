@@ -2020,3 +2020,312 @@ def select_strongest_antinodes(
         )
     )
     return np.sort(antinode_z[order[:count]])
+
+
+# ---------------------------------------------------------------------------
+# Final non-Hermitian comparison (earlier Hermitian calculations are unchanged)
+# ---------------------------------------------------------------------------
+
+
+def compare_complex_modes(k_parallel, photon_poles, exciton_energies,
+                          gamma_x, omega_target, tmm_poles, reflectivity_minima,
+                          resolved, *, detuning_tolerance=1e-8):
+    """Compare energies and pole FWHM at equal real k; all energies are eV.
+
+    The existing oscillator function takes rabi_splitting=2*g, not the
+    real-part pole gap. Original coupling and recalibrated coupling are both
+    retained, so diagonal damping can be separated from recalibration.
+    """
+    k = np.asarray(k_parallel, dtype=float)
+    photon = np.asarray(photon_poles, dtype=complex)
+    exciton = np.asarray(exciton_energies, dtype=float)
+    tmm = np.asarray(tmm_poles, dtype=complex)
+    minima = np.asarray(reflectivity_minima, dtype=float)
+    resolved = np.asarray(resolved, dtype=bool)
+    if (k.ndim != 1 or k.size < 2 or photon.shape != k.shape
+            or exciton.shape != k.shape or tmm.shape != (k.size, 2)
+            or minima.shape != tmm.shape or resolved.shape != tmm.shape):
+        raise ValueError('Expected k/photon/exciton (Nk,) and mode arrays (Nk,2)')
+    if (not np.isfinite(k).all() or not np.isfinite(photon).all()
+            or not np.isfinite(exciton).all() or abs(k[0]) > 1e-14
+            or not np.all(np.diff(k) > 0)):
+        raise ValueError('Finite ordered real-k inputs must start at k=0')
+    if (not np.isfinite([gamma_x, omega_target, detuning_tolerance]).all()
+            or gamma_x < 0 or omega_target <= 0 or detuning_tolerance <= 0
+            or np.any(photon.imag > 1e-15)):
+        raise ValueError('Invalid energy widths, coupling, or passive photon poles')
+    delta0 = float(photon[0].real-exciton[0])
+    if abs(delta0) > detuning_tolerance:
+        raise ValueError('Zero-detuning approximation exceeds the specified eV tolerance')
+    gamma_c = -2*photon.imag
+    g_old = omega_target/2
+    g_eff = float(np.sqrt(g_old**2+((gamma_c[0]-2*gamma_x)/4)**2))
+    adaptive_count = 0
+
+    def track(g):
+        nonlocal adaptive_count
+        def evaluate(momentum):
+            c = complex(np.interp(momentum, k, photon.real),
+                        np.interp(momentum, k, photon.imag))
+            x = float(np.interp(momentum, k, exciton))
+            return complex_coupled_oscillator_eigenvalues(
+                c.real, x, 2*g, -2*c.imag, 2*gamma_x)
+
+        def advance(left_k, previous, right_k, depth=0):
+            nonlocal adaptive_count
+            candidates = evaluate(right_k)
+            costs = [float(np.sum(abs(v-previous)**2))
+                     for v in (candidates, candidates[::-1])]
+            separation = abs(previous[1]-previous[0])
+            best = candidates if costs[0] <= costs[1] else candidates[::-1]
+            ambiguous = abs(costs[0]-costs[1]) <= 1e-8*max(sum(costs), 1e-30)
+            jump = np.max(abs(best-previous)) > .5*separation
+            if ambiguous or jump:
+                if depth >= 20 or right_k-left_k < 1e-10:
+                    raise RuntimeError('Ambiguous complex branch continuation')
+                adaptive_count += 1
+                midpoint = (left_k+right_k)/2
+                middle = advance(left_k, previous, midpoint, depth+1)
+                return advance(midpoint, middle, right_k, depth+1)
+            return best
+
+        values = np.empty((k.size, 2), dtype=complex)
+        values[0] = evaluate(k[0])
+        for i in range(1, k.size):
+            values[i] = advance(k[i-1], values[i-1], k[i])
+        return values
+
+    values = track(g_eff)
+    original_lossy = track(g_old)
+    hermitian = np.column_stack(polariton_energies(photon.real, exciton, omega_target))
+    x_pole = exciton-1j*gamma_x
+    average = (photon+x_pole)/2
+    radical = np.sqrt(g_eff**2+((photon-x_pole)/2)**2)
+    analytic = np.column_stack((average-radical, average+radical))
+    analytic_error = np.max(np.minimum(np.max(abs(values-analytic), axis=1),
+                                      np.max(abs(values-analytic[:, ::-1]), axis=1)))
+    trace_error = float(np.max(abs(values.sum(axis=1)-photon-x_pole)))
+    zero_g_error, lossless_error = 0., 0.
+    for i in (0, k.size//2, k.size-1):
+        uncoupled = complex_coupled_oscillator_eigenvalues(
+            photon[i].real, exciton[i], 0., gamma_c[i], 2*gamma_x)
+        expected = np.sort_complex([photon[i], x_pole[i]])
+        zero_g_error = max(zero_g_error, float(min(
+            np.max(abs(uncoupled-expected)), np.max(abs(uncoupled-expected[::-1])))))
+        lossless = complex_coupled_oscillator_eigenvalues(
+            photon[i].real, exciton[i], 2*g_eff, 0., 0.)
+        expected = np.array(polariton_energies(photon[i].real, exciton[i], 2*g_eff))
+        lossless_error = max(lossless_error, float(np.max(abs(lossless-expected))))
+    splitting_error = float(abs(values[0, 1].real-values[0, 0].real-omega_target))
+    checks = dict(analytic_pair_error_eV=float(analytic_error),
+                  trace_error_eV=trace_error, uncoupled_error_eV=zero_g_error,
+                  lossless_error_eV=lossless_error,
+                  zero_k_splitting_error_ueV=splitting_error*1e6,
+                  passive=bool(np.all(values.imag <= 1e-15)),
+                  adaptive_intermediate_points=adaptive_count)
+    if (max(analytic_error, trace_error, zero_g_error, lossless_error) > 2e-14
+            or splitting_error > 1e-12 or not checks['passive']):
+        raise RuntimeError(f'Complex oscillator validation failed: {checks}')
+    pole_valid = (np.isfinite(tmm.real) & np.isfinite(tmm.imag) & (tmm.imag <= 0)
+                  & np.isfinite(values.real) & np.isfinite(values.imag))
+    energy_valid = pole_valid & resolved & np.isfinite(minima)
+    if not all(np.any(energy_valid[:, j]) for j in (0, 1)):
+        raise ValueError('Both branches need resolved reflectivity minima')
+
+    def statistics(residual, valid):
+        result = {}
+        for j, branch in enumerate(('lp', 'up')):
+            mask = valid[:, j]; selected = residual[mask, j]*1e6
+            result[branch] = dict(n_valid=int(mask.sum()),
+                k_min_um_inverse=float(k[mask][0]), k_max_um_inverse=float(k[mask][-1]),
+                rms_ueV=float(np.sqrt(np.mean(selected**2))),
+                max_abs_ueV=float(np.max(abs(selected))),
+                at_zero_ueV=float(residual[0, j]*1e6) if mask[0] else None,
+                at_kmax_ueV=float(residual[-1, j]*1e6) if mask[-1] else None)
+        return result
+
+    widths = -2*values.imag; tmm_widths = -2*tmm.imag
+    stats = {
+        'energy_effective': statistics(values.real-tmm.real, energy_valid),
+        'energy_reflectivity': statistics(minima-tmm.real, energy_valid),
+        'linewidth_effective': statistics(widths-tmm_widths, pole_valid),
+        'diagnostic_energy_hermitian': statistics(hermitian-tmm.real, energy_valid),
+        'diagnostic_energy_original_g_with_losses': statistics(original_lossy.real-tmm.real, energy_valid),
+        'diagnostic_linewidth_original_g': statistics(-2*original_lossy.imag-tmm_widths, pole_valid),
+    }
+    return dict(k_um_inverse=k, photon_poles_eV=photon, exciton_energy_eV=exciton,
+                tmm_poles_eV=tmm, effective_poles_eV=values,
+                hermitian_energy_eV=hermitian, original_g_poles_eV=original_lossy,
+                reflectivity_minima_eV=minima, reflectivity_resolved=resolved,
+                energy_valid=energy_valid, linewidth_valid=pole_valid,
+                parameters=dict(gamma_x_hwhm_eV=float(gamma_x),
+                    gamma_x_fwhm_eV=float(2*gamma_x),
+                    gamma_c0_fwhm_eV=float(gamma_c[0]),
+                    omega_target_eV=float(omega_target), g_original_eV=float(g_old),
+                    g_eff_eV=g_eff, rabi_argument_eV=2*g_eff,
+                    delta0_eV=delta0, detuning_tolerance_eV=float(detuning_tolerance)),
+                statistics=stats, checks=checks)
+
+
+def validate_complex_comparison_poles(result, background_layers, active_layers,
+                                      *, n_left=1., n_right=1.):
+    """Independently polish representative saved TMM poles on the same geometry."""
+    k = result['k_um_inverse']
+    energy_error = result['effective_poles_eV'].real-result['tmm_poles_eV'].real
+    width_error = -2*(result['effective_poles_eV'].imag-result['tmm_poles_eV'].imag)
+    indices = {0, len(k)//2, len(k)-1}
+    for residual in (energy_error, width_error):
+        for j in (0, 1):
+            indices.add(int(np.nanargmax(abs(residual[:, j]))))
+    rows = []
+    for i in sorted(indices):
+        for branch, layers, pole in (
+                ('photon', background_layers, result['photon_poles_eV'][i]),
+                ('lp', active_layers, result['tmm_poles_eV'][i, 0]),
+                ('up', active_layers, result['tmm_poles_eV'][i, 1])):
+            builder = lambda energy: stack_matrix(
+                energy, float(k[i]), 'TE', layers, n_left=n_left, n_right=n_right)
+            refined = solve_complex_pole(builder, pole, residual_tolerance=1e-11,
+                backward_error_tolerance=1e-12, root_tolerance=1e-13,
+                maximum_evaluations=1000)
+            accepted = (refined['success'] or
+                (refined['residual'] < 5e-8 and refined['backward_error'] < 1e-12
+                 and refined['pole'].imag < 0))
+            shift = refined['pole']-pole
+            rows.append(dict(index=i, k_um_inverse=float(k[i]), branch=branch,
+                accepted=bool(accepted), solver_success=bool(refined['success']),
+                real_shift_ueV=float(shift.real*1e6),
+                linewidth_shift_ueV=float(-2*shift.imag*1e6),
+                backward_error_eV=float(refined['backward_error']),
+                normalized_m22_residual=float(refined['residual'])))
+    if (not all(r['accepted'] for r in rows)
+            or max(abs(r['real_shift_ueV']) for r in rows) >= .01
+            or max(abs(r['linewidth_shift_ueV']) for r in rows) >= .02):
+        raise RuntimeError('TMM root refinement is not small compared with micro-eV residuals')
+    # All sampled modes stay on the same outgoing longitudinal-q branch.
+    indices_n = sorted({float(layer['n']) for layer in background_layers}
+                       | {float(n_left), float(n_right)})
+    maximum_q_step, minimum_q_real = 0., np.inf
+    for index_n in indices_n:
+        for poles in (result['photon_poles_eV'], result['tmm_poles_eV'][:, 0],
+                      result['tmm_poles_eV'][:, 1]):
+            q = longitudinal_wavevector(poles, k, index_n)
+            if not np.isfinite(q).all() or np.any(q.real <= 0) or np.any(q.imag > 1e-12):
+                raise RuntimeError('Unexpected outgoing wavevector branch')
+            maximum_q_step = max(maximum_q_step, float(np.max(abs(np.diff(q))/abs(q[:-1]))))
+            minimum_q_real = min(minimum_q_real, float(np.min(q.real)))
+    if maximum_q_step > .1:
+        raise RuntimeError('Discontinuous longitudinal wavevector branch')
+    result['checks']['outgoing_wavevector_branch'] = dict(
+        passed=True, max_relative_step=maximum_q_step,
+        minimum_real_q_um_inverse=minimum_q_real, refractive_indices=indices_n)
+    result['checks']['tmm_root_refinement'] = rows
+    result['checks']['max_tmm_energy_shift_ueV'] = max(abs(r['real_shift_ueV']) for r in rows)
+    result['checks']['max_tmm_linewidth_shift_ueV'] = max(abs(r['linewidth_shift_ueV']) for r in rows)
+    return rows
+
+
+def export_complex_comparison(result, *, data_dir='data', figure_dir='figures'):
+    """Save complex inputs, diagnostic variants, metadata, CSV and the energy PNG."""
+    import json
+    from pathlib import Path
+    import matplotlib.pyplot as plt
+    from matplotlib.lines import Line2D
+
+    data_dir, figure_dir = Path(data_dir), Path(figure_dir)
+    data_dir.mkdir(exist_ok=True, parents=True)
+    figure_dir.mkdir(exist_ok=True, parents=True)
+    arrays = {key: value for key, value in result.items() if isinstance(value, np.ndarray)}
+    metadata = {key: value for key, value in result.items() if key not in arrays}
+    metadata['units'] = dict(energy='eV', linewidth='eV FWHM = -2 Im(pole)',
+                             length='um', k='um^-1', residual_statistics='micro-eV')
+    metadata['figures'] = ['15_complex_energy_comparison.png']
+    np.savez_compressed(data_dir/'complex_comparison.npz', **arrays)
+    (data_dir/'complex_comparison.json').write_text(
+        json.dumps(metadata, indent=2, ensure_ascii=False, allow_nan=False)+'\n')
+    k = result['k_um_inverse']; model = result['effective_poles_eV']
+    tmm = result['tmm_poles_eV']; dips = result['reflectivity_minima_eV']
+    columns = ['k_um_inverse', 'photon_real_eV', 'photon_imag_eV', 'exciton_energy_eV']
+    values = [k, result['photon_poles_eV'].real, result['photon_poles_eV'].imag,
+              result['exciton_energy_eV']]
+    for j, branch in enumerate(('lp', 'up')):
+        for name in ('tmm_poles_eV', 'effective_poles_eV', 'original_g_poles_eV'):
+            prefix = branch+'_'+name.removesuffix('_eV')
+            columns.extend((prefix+'_real_eV', prefix+'_imag_eV'))
+            values.extend((result[name][:, j].real, result[name][:, j].imag))
+        columns.extend((branch+'_Rmin_eV', branch+'_Rmin_resolved',
+                        branch+'_energy_valid', branch+'_linewidth_valid',
+                        branch+'_hermitian_eV', branch+'_delta_energy_ueV',
+                        branch+'_delta_Rmin_ueV', branch+'_delta_linewidth_ueV'))
+        values.extend((dips[:, j], result['reflectivity_resolved'][:, j].astype(int),
+                       result['energy_valid'][:, j].astype(int),
+                       result['linewidth_valid'][:, j].astype(int),
+                       result['hermitian_energy_eV'][:, j],
+                       (model[:, j].real-tmm[:, j].real)*1e6,
+                       (dips[:, j]-tmm[:, j].real)*1e6,
+                       -2*(model[:, j].imag-tmm[:, j].imag)*1e6))
+    np.savetxt(data_dir/'complex_comparison.csv', np.column_stack(values),
+               delimiter=',', header=','.join(columns), comments='')
+    style = {'font.size': 10, 'axes.labelsize': 10, 'axes.titlesize': 11,
+             'legend.fontsize': 8, 'xtick.labelsize': 9, 'ytick.labelsize': 9,
+             'axes.grid': True, 'grid.alpha': .25, 'lines.linewidth': 1.5}
+    with plt.rc_context(style):
+        fig, axes = plt.subplots(2, 1, figsize=(7.2, 5.4), sharex=True,
+                                 layout='constrained', height_ratios=(1.2, 1))
+        for j, (branch, color) in enumerate((('LP', 'C0'), ('UP', 'C1'))):
+            reference = tmm[:, j].real-result['exciton_energy_eV'][0]
+            prediction = model[:, j].real-result['exciton_energy_eV'][0]
+            valid = result['energy_valid'][:, j]
+            ax_dips = (dips[:, j]-result['exciton_energy_eV'][0])*1e3
+            axes[0].plot(k[valid][::12], ax_dips[valid][::12], 'o',
+                         ms=4, mfc='none', mec=color, zorder=4)
+            axes[1].plot(k[valid], (dips[valid, j]-tmm[valid, j].real)*1e6,
+                         ':', color=color, marker='o', markevery=12, ms=3, mfc='white')
+            axes[0].plot(k, reference*1e3, '-', color=color)
+            axes[0].plot(k, prediction*1e3, '--', color=color)
+            axes[1].plot(k[valid], (prediction-reference)[valid]*1e6, '--', color=color)
+            label_i = int(.8*(len(k)-1))
+            axes[0].annotate(branch, (k[label_i], reference[label_i]*1e3),
+                xytext=(0, -13 if j == 0 else 8), textcoords='offset points',
+                color=color, fontsize=10, weight='bold')
+            line_i = int((.55 if j == 0 else .72)*(len(k)-1))
+            delta = (prediction-reference)*1e6
+            axes[1].annotate(branch, (k[line_i], delta[line_i]),
+                xytext=(0, 7 if j == 0 else -14), textcoords='offset points',
+                color=color, fontsize=9, weight='bold')
+        axes[0].legend(handles=[
+            Line2D([], [], ls='--', color='.2',
+                   label=r'1. Non-Hermitian $2\times2$ eigenvalues: Re $E$'),
+            Line2D([], [], ls='none', marker='o', mfc='none', color='.2',
+                   label='2. TMM reflectance minima'),
+            Line2D([], [], ls='-', color='.2',
+                   label=r'3. TMM solutions of $M_{22}=0$: Re $E$')],
+            loc='upper left', fontsize=8.5)
+        axes[1].legend(handles=[
+            Line2D([], [], ls='--', color='.2', label=r'$E_1-E_3$'),
+            Line2D([], [], ls=':', marker='o', mfc='white', color='.2',
+                   label=r'$E_2-E_3$')], loc='upper right', ncol=2, fontsize=9)
+        axes[0].set_ylabel(r'$E-E_X(0)$ (meV)')
+        axes[0].set_title('(a) Resonance energies: methods 1, 2 and 3', loc='left')
+        axes[1].set_title('(b) Energy differences from method 3', loc='left')
+        axes[1].set_ylabel(r'$E_j-E_3$ ($\mu$eV)')
+        axes[1].set_xlabel(r'In-plane wave vector $k_\parallel$ ($\mu$m$^{-1}$)')
+        axes[1].axhline(0, color='.45', lw=.7)
+        axes[1].set_xlim(k[0], k[-1])
+        for ax in axes:
+            ax.ticklabel_format(axis='y', style='plain', useOffset=False)
+        path = figure_dir/metadata['figures'][0]
+        fig.savefig(path, dpi=300, facecolor='white')
+        plt.close(fig)
+    return [path]
+
+
+def load_complex_comparison(data_dir='data'):
+    """Load the saved final comparison without rerunning the optical model."""
+    import json
+    from pathlib import Path
+    path = Path(data_dir)
+    result = json.loads((path/'complex_comparison.json').read_text())
+    with np.load(path/'complex_comparison.npz') as arrays:
+        result.update({key: arrays[key].copy() for key in arrays.files})
+    return result
